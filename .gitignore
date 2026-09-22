@@ -1,0 +1,15 @@
+# Rete di sicurezza extra: in questo repo deve finire solo index.html
+# generato da overlay/pagina_pubblica/esporta.py. Il file con le credenziali
+# reali (config/config.json, con le stream key di PeerTube/Twitch) vive due
+# livelli sopra, fuori da questo repository, e git non potrebbe comunque
+# risalirci — ma se per errore un file di configurazione finisse copiato
+# qui dentro, queste regole impediscono che venga committato/pubblicato.
+
+config.json
+config/
+*.env
+.env*
+*secret*
+*credential*
+*.key
+*.pem
