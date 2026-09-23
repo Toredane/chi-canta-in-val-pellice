@@ -201,7 +201,7 @@
     <div class="testo-hero">
       <h1>Chi canta a Luserna&nbsp;San&nbsp;Giovanni?</h1>
       <p>Una cam puntata sulle montagne trasmette in diretta e riconosce, dal canto, gli uccelli che passano nei dintorni. Il riconoscimento vocale usa BirdNET, un modello open-source, eseguito in locale su un Raspberry Pi 5. Il registro si aggiorna al termine di ogni sessione.</p>
-      <div class="meta">Ultimo aggiornamento: 24 settembre 2026, 00:58 · 57 specie</div>
+      <div class="meta">Ultimo aggiornamento: 24 settembre 2026, 01:17 · 57 specie</div>
     </div>
   </header>
 
@@ -241,6 +241,7 @@
 <tr><td>Verdone</td><td class="scientific">Chloris chloris</td><td class="num">6</td></tr>
 <tr><td>Cincia mora</td><td class="scientific">Periparus ater</td><td class="num">5</td></tr>
 <tr><td>Canapiglia</td><td class="scientific">Mareca strepera</td><td class="num">4</td></tr>
+<tr><td>Cigno minore</td><td class="scientific">Cygnus columbianus</td><td class="num">4</td></tr>
 <tr><td>Passera europea</td><td class="scientific">Passer domesticus</td><td class="num">4</td></tr>
 <tr><td>Pettirosso</td><td class="scientific">Erithacus rubecula</td><td class="num">4</td></tr>
 <tr><td>Rampichino comune</td><td class="scientific">Certhia brachydactyla</td><td class="num">4</td></tr>
@@ -249,7 +250,6 @@
 <tr><td>Ballerina bianca</td><td class="scientific">Motacilla alba</td><td class="num">3</td></tr>
 <tr><td>Barbagianni</td><td class="scientific">Tyto alba</td><td class="num">3</td></tr>
 <tr><td>Cardellino</td><td class="scientific">Carduelis carduelis</td><td class="num">3</td></tr>
-<tr><td>Cigno minore</td><td class="scientific">Cygnus columbianus</td><td class="num">3</td></tr>
 <tr><td>Cinciarella</td><td class="scientific">Cyanistes caeruleus</td><td class="num">3</td></tr>
 <tr><td>Folaga</td><td class="scientific">Fulica atra</td><td class="num">3</td></tr>
 <tr><td>Corvo comune</td><td class="scientific">Corvus frugilegus</td><td class="num">2</td></tr>
@@ -284,7 +284,7 @@
 
   <section id="stagione">
     <h2>Classifica per stagione</h2>
-    <p class="sub">Le specie più sentite in ciascuna stagione, calcolate sulla data delle osservazioni.</p>
+    <p class="sub">Le specie più sentite in ciascuna stagione, calcolate sulla data delle osservazioni. Stagioni astronomiche (equinozi e solstizi), non i mesi civili.</p>
     <div class="table-scroll" id="scroll-stagione">
       <table data-sort-table>
         <thead>
@@ -295,11 +295,16 @@
           </tr>
         </thead>
         <tbody>
-<tr><td><span class="pill">Autunno 2026</span></td><td>Codirosso spazzacamino</td><td class="num">623</td></tr>
-<tr><td><span class="pill">Autunno 2026</span></td><td>Gazza</td><td class="num">413</td></tr>
-<tr><td><span class="pill">Autunno 2026</span></td><td>Codibugnolo</td><td class="num">153</td></tr>
-<tr><td><span class="pill">Autunno 2026</span></td><td>Ghiandaia</td><td class="num">60</td></tr>
-<tr><td><span class="pill">Autunno 2026</span></td><td>Cinciallegra</td><td class="num">43</td></tr>
+<tr><td><span class="pill">Estate 2026</span></td><td>Gazza</td><td class="num">291</td></tr>
+<tr><td><span class="pill">Estate 2026</span></td><td>Codirosso spazzacamino</td><td class="num">229</td></tr>
+<tr><td><span class="pill">Estate 2026</span></td><td>Codibugnolo</td><td class="num">114</td></tr>
+<tr><td><span class="pill">Estate 2026</span></td><td>Civetta</td><td class="num">35</td></tr>
+<tr><td><span class="pill">Estate 2026</span></td><td>Ghiandaia</td><td class="num">21</td></tr>
+<tr><td><span class="pill">Autunno 2026</span></td><td>Codirosso spazzacamino</td><td class="num">394</td></tr>
+<tr><td><span class="pill">Autunno 2026</span></td><td>Gazza</td><td class="num">122</td></tr>
+<tr><td><span class="pill">Autunno 2026</span></td><td>Ghiandaia</td><td class="num">39</td></tr>
+<tr><td><span class="pill">Autunno 2026</span></td><td>Codibugnolo</td><td class="num">39</td></tr>
+<tr><td><span class="pill">Autunno 2026</span></td><td>Cinciallegra</td><td class="num">37</td></tr>
         </tbody>
       </table>
     </div>
@@ -307,7 +312,66 @@
 
   <section id="luce-buio">
     <h2>Luce e buio, per stagione</h2>
-    <p class="sub">Ogni specie, divisa tra osservazioni fatte nelle ore di luce (alba–tramonto) e nelle ore di buio (tramonto–alba), calcolate giorno per giorno con la posizione reale del sole.</p>
+    <p class="sub">Ogni specie, divisa tra osservazioni fatte nelle ore di luce (alba–tramonto) e nelle ore di buio (tramonto–alba), calcolate giorno per giorno con la posizione reale del sole. Stagioni astronomiche (equinozi e solstizi), non i mesi civili.</p>
+
+    <h3>Estate 2026</h3>
+    <div class="table-scroll" id="scroll-luce-estate-2026">
+      <table data-sort-table>
+        <thead>
+          <tr>
+            <th data-key="comune" data-type="text">Specie <span class="arrow">↕</span></th>
+            <th data-key="luce" data-type="num">Ore di luce <span class="arrow">↕</span></th>
+            <th data-key="buio" data-type="num">Ore di buio <span class="arrow">↕</span></th>
+          </tr>
+        </thead>
+        <tbody>
+<tr><td>Gazza</td><td class="num">291</td><td class="num">0</td></tr>
+<tr><td>Codirosso spazzacamino</td><td class="num">200</td><td class="num">29</td></tr>
+<tr><td>Codibugnolo</td><td class="num">114</td><td class="num">0</td></tr>
+<tr><td>Civetta</td><td class="num">1</td><td class="num">34</td></tr>
+<tr><td>Ghiandaia</td><td class="num">21</td><td class="num">0</td></tr>
+<tr><td>Verzellino</td><td class="num">17</td><td class="num">0</td></tr>
+<tr><td>Zigolo nero</td><td class="num">10</td><td class="num">4</td></tr>
+<tr><td>Merlo comune</td><td class="num">0</td><td class="num">7</td></tr>
+<tr><td>Cinciallegra</td><td class="num">6</td><td class="num">0</td></tr>
+<tr><td>Falco pellegrino</td><td class="num">3</td><td class="num">3</td></tr>
+<tr><td>Verdone</td><td class="num">6</td><td class="num">0</td></tr>
+<tr><td>Canapiglia</td><td class="num">4</td><td class="num">0</td></tr>
+<tr><td>Passera europea</td><td class="num">4</td><td class="num">0</td></tr>
+<tr><td>Prispolone</td><td class="num">4</td><td class="num">0</td></tr>
+<tr><td>Allocco</td><td class="num">0</td><td class="num">3</td></tr>
+<tr><td>Ballerina bianca</td><td class="num">3</td><td class="num">0</td></tr>
+<tr><td>Cigno minore</td><td class="num">0</td><td class="num">3</td></tr>
+<tr><td>Picchio rosso maggiore</td><td class="num">3</td><td class="num">0</td></tr>
+<tr><td>Cornacchia nera</td><td class="num">1</td><td class="num">1</td></tr>
+<tr><td>Corvo comune</td><td class="num">2</td><td class="num">0</td></tr>
+<tr><td>Folaga</td><td class="num">1</td><td class="num">1</td></tr>
+<tr><td>Luì piccolo</td><td class="num">2</td><td class="num">0</td></tr>
+<tr><td>Pettirosso</td><td class="num">0</td><td class="num">2</td></tr>
+<tr><td>Picchio verde</td><td class="num">1</td><td class="num">1</td></tr>
+<tr><td>Rigogolo</td><td class="num">0</td><td class="num">2</td></tr>
+<tr><td>Tarabusino</td><td class="num">1</td><td class="num">1</td></tr>
+<tr><td>Tordo sassello</td><td class="num">2</td><td class="num">0</td></tr>
+<tr><td>Airone cenerino</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Balia nera</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Ballerina gialla</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Barbagianni</td><td class="num">0</td><td class="num">1</td></tr>
+<tr><td>Cincia mora</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Cinciarella</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Corvo imperiale</td><td class="num">0</td><td class="num">1</td></tr>
+<tr><td>Crociere</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Frosone</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Germano reale</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Gruccione</td><td class="num">0</td><td class="num">1</td></tr>
+<tr><td>Gufo reale</td><td class="num">0</td><td class="num">1</td></tr>
+<tr><td>Mignattino piombato</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Passera mattugia</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Pigliamosche</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Salciaiola</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Taccola</td><td class="num">1</td><td class="num">0</td></tr>
+        </tbody>
+      </table>
+    </div>
 
     <h3>Autunno 2026</h3>
     <div class="table-scroll" id="scroll-luce-autunno-2026">
@@ -320,61 +384,40 @@
           </tr>
         </thead>
         <tbody>
-<tr><td>Codirosso spazzacamino</td><td class="num">582</td><td class="num">41</td></tr>
-<tr><td>Gazza</td><td class="num">413</td><td class="num">0</td></tr>
-<tr><td>Codibugnolo</td><td class="num">153</td><td class="num">0</td></tr>
-<tr><td>Ghiandaia</td><td class="num">60</td><td class="num">0</td></tr>
-<tr><td>Cinciallegra</td><td class="num">43</td><td class="num">0</td></tr>
-<tr><td>Civetta</td><td class="num">1</td><td class="num">37</td></tr>
-<tr><td>Zigolo nero</td><td class="num">19</td><td class="num">4</td></tr>
-<tr><td>Prispolone</td><td class="num">20</td><td class="num">0</td></tr>
-<tr><td>Verzellino</td><td class="num">17</td><td class="num">0</td></tr>
-<tr><td>Balia nera</td><td class="num">13</td><td class="num">0</td></tr>
-<tr><td>Falco pellegrino</td><td class="num">6</td><td class="num">5</td></tr>
-<tr><td>Picchio rosso maggiore</td><td class="num">11</td><td class="num">0</td></tr>
-<tr><td>Cornacchia nera</td><td class="num">9</td><td class="num">1</td></tr>
-<tr><td>Luì piccolo</td><td class="num">8</td><td class="num">1</td></tr>
+<tr><td>Codirosso spazzacamino</td><td class="num">382</td><td class="num">12</td></tr>
+<tr><td>Gazza</td><td class="num">122</td><td class="num">0</td></tr>
+<tr><td>Codibugnolo</td><td class="num">39</td><td class="num">0</td></tr>
+<tr><td>Ghiandaia</td><td class="num">39</td><td class="num">0</td></tr>
+<tr><td>Cinciallegra</td><td class="num">37</td><td class="num">0</td></tr>
+<tr><td>Prispolone</td><td class="num">16</td><td class="num">0</td></tr>
+<tr><td>Balia nera</td><td class="num">12</td><td class="num">0</td></tr>
+<tr><td>Zigolo nero</td><td class="num">9</td><td class="num">0</td></tr>
+<tr><td>Cornacchia nera</td><td class="num">8</td><td class="num">0</td></tr>
+<tr><td>Picchio rosso maggiore</td><td class="num">8</td><td class="num">0</td></tr>
 <tr><td>Fringuello</td><td class="num">7</td><td class="num">0</td></tr>
-<tr><td>Merlo comune</td><td class="num">0</td><td class="num">7</td></tr>
-<tr><td>Ballerina gialla</td><td class="num">6</td><td class="num">0</td></tr>
-<tr><td>Picchio verde</td><td class="num">5</td><td class="num">1</td></tr>
-<tr><td>Verdone</td><td class="num">6</td><td class="num">0</td></tr>
-<tr><td>Cincia mora</td><td class="num">5</td><td class="num">0</td></tr>
-<tr><td>Canapiglia</td><td class="num">4</td><td class="num">0</td></tr>
-<tr><td>Passera europea</td><td class="num">4</td><td class="num">0</td></tr>
-<tr><td>Pettirosso</td><td class="num">2</td><td class="num">2</td></tr>
+<tr><td>Luì piccolo</td><td class="num">6</td><td class="num">1</td></tr>
+<tr><td>Ballerina gialla</td><td class="num">5</td><td class="num">0</td></tr>
+<tr><td>Falco pellegrino</td><td class="num">3</td><td class="num">2</td></tr>
+<tr><td>Cincia mora</td><td class="num">4</td><td class="num">0</td></tr>
+<tr><td>Picchio verde</td><td class="num">4</td><td class="num">0</td></tr>
 <tr><td>Rampichino comune</td><td class="num">4</td><td class="num">0</td></tr>
-<tr><td>Tordo sassello</td><td class="num">4</td><td class="num">0</td></tr>
-<tr><td>Allocco</td><td class="num">0</td><td class="num">3</td></tr>
-<tr><td>Ballerina bianca</td><td class="num">3</td><td class="num">0</td></tr>
-<tr><td>Barbagianni</td><td class="num">2</td><td class="num">1</td></tr>
 <tr><td>Cardellino</td><td class="num">3</td><td class="num">0</td></tr>
-<tr><td>Cigno minore</td><td class="num">0</td><td class="num">3</td></tr>
-<tr><td>Cinciarella</td><td class="num">3</td><td class="num">0</td></tr>
-<tr><td>Folaga</td><td class="num">2</td><td class="num">1</td></tr>
-<tr><td>Corvo comune</td><td class="num">2</td><td class="num">0</td></tr>
-<tr><td>Corvo imperiale</td><td class="num">0</td><td class="num">2</td></tr>
-<tr><td>Rigogolo</td><td class="num">0</td><td class="num">2</td></tr>
-<tr><td>Tarabusino</td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>Airone cenerino</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Civetta</td><td class="num">0</td><td class="num">3</td></tr>
+<tr><td>Barbagianni</td><td class="num">2</td><td class="num">0</td></tr>
+<tr><td>Cinciarella</td><td class="num">2</td><td class="num">0</td></tr>
+<tr><td>Pettirosso</td><td class="num">2</td><td class="num">0</td></tr>
+<tr><td>Tordo sassello</td><td class="num">2</td><td class="num">0</td></tr>
 <tr><td>Assiolo</td><td class="num">0</td><td class="num">1</td></tr>
 <tr><td>Bigiarella</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Cigno minore</td><td class="num">0</td><td class="num">1</td></tr>
 <tr><td>Codirosso</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td>Cornacchia grigia</td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Crociere</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Corvo imperiale</td><td class="num">0</td><td class="num">1</td></tr>
 <tr><td>Fiorrancino</td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Frosone</td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Germano reale</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Folaga</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td>Gheppio</td><td class="num">0</td><td class="num">1</td></tr>
-<tr><td>Gruccione</td><td class="num">0</td><td class="num">1</td></tr>
-<tr><td>Gufo reale</td><td class="num">0</td><td class="num">1</td></tr>
-<tr><td>Mignattino piombato</td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Passera mattugia</td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Pigliamosche</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td>Piro piro piccolo</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td>Piviere dorato</td><td class="num">0</td><td class="num">1</td></tr>
-<tr><td>Salciaiola</td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Taccola</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td>Tordo bottaccio</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td>Upupa</td><td class="num">1</td><td class="num">0</td></tr>
         </tbody>
@@ -398,6 +441,7 @@
           </tr>
         </thead>
         <tbody>
+<tr><td>24 set 2026, 01:08</td><td>Cigno minore</td><td class="num">0.73</td></tr>
 <tr><td>24 set 2026, 00:37</td><td>Falco pellegrino</td><td class="num">0.93</td></tr>
 <tr><td>24 set 2026, 00:09</td><td>Civetta</td><td class="num">1.00</td></tr>
 <tr><td>24 set 2026, 00:09</td><td>Civetta</td><td class="num">0.99</td></tr>
