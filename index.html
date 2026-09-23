@@ -142,7 +142,7 @@
     border-radius: 4px;
   }
   #scroll-specie, #scroll-registro { max-height: 672px; overflow-y: auto; }
-  #scroll-stagione, #scroll-sessioni { max-height: 252px; overflow-y: auto; }
+  #scroll-stagione, [id^="scroll-luce-"] { max-height: 252px; overflow-y: auto; }
   thead th { position: sticky; top: 0; background: var(--parchment); z-index: 1; }
 
   .pill {
@@ -170,6 +170,27 @@
       width: 110px;
     }
   }
+
+  .nota-confidenza {
+    border-left: 3px solid var(--lavender);
+    background: var(--row-alt);
+    padding: 14px 18px;
+    margin: 0 0 48px;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    max-width: 560px;
+    border-radius: 0 4px 4px 0;
+  }
+  .nota-confidenza strong { color: var(--ink); }
+
+  section h3 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin: 32px 0 12px;
+    color: var(--lavender-deep);
+  }
+  section h3:first-of-type { margin-top: 8px; }
 </style>
 </head>
 <body>
@@ -180,9 +201,11 @@
     <div class="testo-hero">
       <h1>Chi canta a Luserna&nbsp;San&nbsp;Giovanni?</h1>
       <p>Una cam puntata sulle montagne trasmette in diretta e riconosce, dal canto, gli uccelli che passano nei dintorni. Il riconoscimento vocale usa BirdNET, un modello open-source, eseguito in locale su un Raspberry Pi 5. Il registro si aggiorna al termine di ogni sessione.</p>
-      <div class="meta">Ultimo aggiornamento: 24 settembre 2026, 00:33 · 16 sessioni registrate · 57 specie</div>
+      <div class="meta">Ultimo aggiornamento: 24 settembre 2026, 00:58 · 57 specie</div>
     </div>
   </header>
+
+  <p class="nota-confidenza"><strong>Come leggere la confidenza:</strong> ogni osservazione ha un punteggio da 0 a 1 — più è alto, più il canto registrato assomiglia a quello tipico della specie. Non è una certezza assoluta, solo un'indicazione.</p>
 
   <section id="specie">
     <h2>Specie osservate</h2>
@@ -207,9 +230,9 @@
 <tr><td>Prispolone</td><td class="scientific">Anthus trivialis</td><td class="num">20</td></tr>
 <tr><td>Verzellino</td><td class="scientific">Serinus serinus</td><td class="num">17</td></tr>
 <tr><td>Balia nera</td><td class="scientific">Ficedula hypoleuca</td><td class="num">13</td></tr>
+<tr><td>Falco pellegrino</td><td class="scientific">Falco peregrinus</td><td class="num">11</td></tr>
 <tr><td>Picchio rosso maggiore</td><td class="scientific">Dendrocopos major</td><td class="num">11</td></tr>
 <tr><td>Cornacchia nera</td><td class="scientific">Corvus corone</td><td class="num">10</td></tr>
-<tr><td>Falco pellegrino</td><td class="scientific">Falco peregrinus</td><td class="num">10</td></tr>
 <tr><td>Luì piccolo</td><td class="scientific">Phylloscopus collybita</td><td class="num">9</td></tr>
 <tr><td>Fringuello</td><td class="scientific">Fringilla coelebs</td><td class="num">7</td></tr>
 <tr><td>Merlo comune</td><td class="scientific">Turdus merula</td><td class="num">7</td></tr>
@@ -282,35 +305,78 @@
     </div>
   </section>
 
-  <section id="sessioni">
-    <h2>Sessioni</h2>
-    <p class="sub">Ogni diretta avviata, con durata e numero di osservazioni raccolte.</p>
-    <div class="table-scroll" id="scroll-sessioni">
+  <section id="luce-buio">
+    <h2>Luce e buio, per stagione</h2>
+    <p class="sub">Ogni specie, divisa tra osservazioni fatte nelle ore di luce (alba–tramonto) e nelle ore di buio (tramonto–alba), calcolate giorno per giorno con la posizione reale del sole.</p>
+
+    <h3>Autunno 2026</h3>
+    <div class="table-scroll" id="scroll-luce-autunno-2026">
       <table data-sort-table>
         <thead>
           <tr>
-            <th data-key="inizio" data-type="text">Inizio <span class="arrow">↕</span></th>
-            <th data-key="durata" data-type="text">Durata <span class="arrow">↕</span></th>
-            <th data-key="osservazioni" data-type="num">Osservazioni <span class="arrow">↕</span></th>
+            <th data-key="comune" data-type="text">Specie <span class="arrow">↕</span></th>
+            <th data-key="luce" data-type="num">Ore di luce <span class="arrow">↕</span></th>
+            <th data-key="buio" data-type="num">Ore di buio <span class="arrow">↕</span></th>
           </tr>
         </thead>
         <tbody>
-<tr><td>22 set 2026, 09:22</td><td>8h 13m</td><td class="num">225</td></tr>
-<tr><td>21 set 2026, 22:17</td><td>10h 00m</td><td class="num">198</td></tr>
-<tr><td>21 set 2026, 19:22</td><td>0h 07m</td><td class="num">23</td></tr>
-<tr><td>21 set 2026, 18:03</td><td>1h 15m</td><td class="num">75</td></tr>
-<tr><td>21 set 2026, 11:26</td><td>6h 29m</td><td class="num">83</td></tr>
-<tr><td>21 set 2026, 11:00</td><td>0h 06m</td><td class="num">14</td></tr>
-<tr><td>21 set 2026, 09:48</td><td>1h 11m</td><td class="num">102</td></tr>
-<tr><td>21 set 2026, 09:47</td><td>0h 01m</td><td class="num">0</td></tr>
-<tr><td>21 set 2026, 09:34</td><td>0h 12m</td><td class="num">11</td></tr>
-<tr><td>21 set 2026, 09:17</td><td>0h 17m</td><td class="num">16</td></tr>
-<tr><td>21 set 2026, 08:50</td><td>0h 27m</td><td class="num">49</td></tr>
-<tr><td>20 set 2026, 22:50</td><td>0h 02m</td><td class="num">2</td></tr>
-<tr><td>20 set 2026, 22:28</td><td>0h 00m</td><td class="num">0</td></tr>
-<tr><td>20 set 2026, 22:15</td><td>0h 03m</td><td class="num">2</td></tr>
-<tr><td>20 set 2026, 22:05</td><td>0h 03m</td><td class="num">3</td></tr>
-<tr><td>20 set 2026, 21:27</td><td>0h 37m</td><td class="num">2</td></tr>
+<tr><td>Codirosso spazzacamino</td><td class="num">582</td><td class="num">41</td></tr>
+<tr><td>Gazza</td><td class="num">413</td><td class="num">0</td></tr>
+<tr><td>Codibugnolo</td><td class="num">153</td><td class="num">0</td></tr>
+<tr><td>Ghiandaia</td><td class="num">60</td><td class="num">0</td></tr>
+<tr><td>Cinciallegra</td><td class="num">43</td><td class="num">0</td></tr>
+<tr><td>Civetta</td><td class="num">1</td><td class="num">37</td></tr>
+<tr><td>Zigolo nero</td><td class="num">19</td><td class="num">4</td></tr>
+<tr><td>Prispolone</td><td class="num">20</td><td class="num">0</td></tr>
+<tr><td>Verzellino</td><td class="num">17</td><td class="num">0</td></tr>
+<tr><td>Balia nera</td><td class="num">13</td><td class="num">0</td></tr>
+<tr><td>Falco pellegrino</td><td class="num">6</td><td class="num">5</td></tr>
+<tr><td>Picchio rosso maggiore</td><td class="num">11</td><td class="num">0</td></tr>
+<tr><td>Cornacchia nera</td><td class="num">9</td><td class="num">1</td></tr>
+<tr><td>Luì piccolo</td><td class="num">8</td><td class="num">1</td></tr>
+<tr><td>Fringuello</td><td class="num">7</td><td class="num">0</td></tr>
+<tr><td>Merlo comune</td><td class="num">0</td><td class="num">7</td></tr>
+<tr><td>Ballerina gialla</td><td class="num">6</td><td class="num">0</td></tr>
+<tr><td>Picchio verde</td><td class="num">5</td><td class="num">1</td></tr>
+<tr><td>Verdone</td><td class="num">6</td><td class="num">0</td></tr>
+<tr><td>Cincia mora</td><td class="num">5</td><td class="num">0</td></tr>
+<tr><td>Canapiglia</td><td class="num">4</td><td class="num">0</td></tr>
+<tr><td>Passera europea</td><td class="num">4</td><td class="num">0</td></tr>
+<tr><td>Pettirosso</td><td class="num">2</td><td class="num">2</td></tr>
+<tr><td>Rampichino comune</td><td class="num">4</td><td class="num">0</td></tr>
+<tr><td>Tordo sassello</td><td class="num">4</td><td class="num">0</td></tr>
+<tr><td>Allocco</td><td class="num">0</td><td class="num">3</td></tr>
+<tr><td>Ballerina bianca</td><td class="num">3</td><td class="num">0</td></tr>
+<tr><td>Barbagianni</td><td class="num">2</td><td class="num">1</td></tr>
+<tr><td>Cardellino</td><td class="num">3</td><td class="num">0</td></tr>
+<tr><td>Cigno minore</td><td class="num">0</td><td class="num">3</td></tr>
+<tr><td>Cinciarella</td><td class="num">3</td><td class="num">0</td></tr>
+<tr><td>Folaga</td><td class="num">2</td><td class="num">1</td></tr>
+<tr><td>Corvo comune</td><td class="num">2</td><td class="num">0</td></tr>
+<tr><td>Corvo imperiale</td><td class="num">0</td><td class="num">2</td></tr>
+<tr><td>Rigogolo</td><td class="num">0</td><td class="num">2</td></tr>
+<tr><td>Tarabusino</td><td class="num">1</td><td class="num">1</td></tr>
+<tr><td>Airone cenerino</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Assiolo</td><td class="num">0</td><td class="num">1</td></tr>
+<tr><td>Bigiarella</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Codirosso</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Cornacchia grigia</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Crociere</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Fiorrancino</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Frosone</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Germano reale</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Gheppio</td><td class="num">0</td><td class="num">1</td></tr>
+<tr><td>Gruccione</td><td class="num">0</td><td class="num">1</td></tr>
+<tr><td>Gufo reale</td><td class="num">0</td><td class="num">1</td></tr>
+<tr><td>Mignattino piombato</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Passera mattugia</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Pigliamosche</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Piro piro piccolo</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Piviere dorato</td><td class="num">0</td><td class="num">1</td></tr>
+<tr><td>Salciaiola</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Taccola</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Tordo bottaccio</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Upupa</td><td class="num">1</td><td class="num">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -332,6 +398,7 @@
           </tr>
         </thead>
         <tbody>
+<tr><td>24 set 2026, 00:37</td><td>Falco pellegrino</td><td class="num">0.93</td></tr>
 <tr><td>24 set 2026, 00:09</td><td>Civetta</td><td class="num">1.00</td></tr>
 <tr><td>24 set 2026, 00:09</td><td>Civetta</td><td class="num">0.99</td></tr>
 <tr><td>24 set 2026, 00:09</td><td>Civetta</td><td class="num">1.00</td></tr>
