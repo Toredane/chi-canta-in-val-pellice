@@ -223,10 +223,10 @@
      altezza dipende solo dal proprio contenuto, mai dalla torta - nessuna
      circolarita' possibile. Valori qui sotto sono il fallback prima che lo
      script giri (e per il caso senza JS). */
-  .torta-corpo { display: flex; align-items: flex-start; justify-content: center; gap: 18px; }
+  .torta-corpo { display: flex; align-items: flex-start; justify-content: center; gap: 12px; }
   .torta-corpo svg { flex: 0 0 auto; width: 180px; height: 180px; }
   .torta-legenda { list-style: none; padding: 0; margin: 0; font-size: 0.82rem; color: var(--ink-soft); text-align: left; flex: 0 0 230px; }
-  .torta-legenda li { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+  .torta-legenda li { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
   .torta-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 
   /* Sotto i 480px (telefoni stretti) una legenda di 9 voci puo' rendere la
@@ -240,11 +240,19 @@
     .torta-legenda { flex-basis: auto; width: 100%; }
   }
 
-  .carosello-rare { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
+  /* --rare-visibili: quante card mostra il carosello per pagina - unica
+     fonte di verita', letta anche dal JS (getComputedStyle) cosi' i due
+     non possono disallinearsi. Sotto i 480px 1 sola card, larga quanto
+     .car-viewport (formula sotto: con 1 sola card lo scarto di gap e' 0,
+     quindi 100% esatto). Il media query che la sovrascrive sta DOPO questa
+     regola (vedi piu' sotto, insieme agli altri override 480px): stessa
+     specificita', quindi l'ordine nel foglio di stile decide, e la regola
+     successiva deve vincere per far funzionare il breakpoint. */
+  .carosello-rare { --rare-visibili: 3; display: flex; align-items: center; gap: 14px; margin-top: 4px; }
   .car-viewport { flex: 1; overflow: hidden; }
   .car-track { display: flex; gap: 16px; transition: none; }
   .rara-card {
-    flex: 0 0 calc((100% - 32px) / 3);
+    flex: 0 0 calc((100% - (var(--rare-visibili) - 1) * 16px) / var(--rare-visibili));
     aspect-ratio: 1 / 1;
     background: var(--row-alt);
     border: 1px solid var(--line);
@@ -287,6 +295,13 @@
 
   .rara-nome { text-decoration: none; display: block; }
   .rara-nome:hover { text-decoration: underline; }
+
+  /* Carosello specie rare: 1 card per volta invece di 3, sotto i 480px.
+     Deve stare DOPO la regola base .carosello-rare (sopra) per vincere la
+     cascata: stessa specificita', quindi conta solo l'ordine nel foglio. */
+  @media (max-width: 480px) {
+    .carosello-rare { --rare-visibili: 1; }
+  }
 
   .video-embed-wrap {
     position: relative;
@@ -408,7 +423,7 @@
     <div class="testo-hero">
       <h1>Chi canta in Val&nbsp;Pellice?</h1>
       <p>Una cam puntata sulle montagne trasmette in diretta e riconosce, dal canto, gli uccelli che passano nei dintorni. Il riconoscimento vocale usa BirdNET, un modello open-source, eseguito in locale su un Raspberry Pi 5. Il registro si aggiorna al termine di ogni sessione.</p>
-      <div class="meta">Ultimo aggiornamento: 25 settembre 2026, 23:57 · 63 specie</div>
+      <div class="meta">Ultimo aggiornamento: 26 settembre 2026, 00:15 · 63 specie</div>
     </div>
   </header>
 
@@ -3109,7 +3124,10 @@ if (filtro) {
   // sua altezza dipende solo dal proprio contenuto, mai dalla torta - si
   // puo' leggere e usare senza rischio di ciclo. Sotto i 480px il CSS passa
   // a colonna con torta a dimensione fissa: qui non si tocca nulla.
-  var GAP_CORPO = 18;
+  // Il gap si legge da getComputedStyle (non un valore duplicato qui):
+  // stesso motivo per cui il media query del carosello e' stato spostato
+  // dopo la sua regola base - due copie dello stesso numero, una in CSS e
+  // una in JS, vanno prima o poi fuori sincrono.
   var LATO_MINIMO = 80;
 
   function adattaTorte() {
@@ -3118,9 +3136,10 @@ if (filtro) {
       var svg = corpo.querySelector('svg');
       var legenda = corpo.querySelector('.torta-legenda');
       if (!svg || !legenda) return;
+      var gap = parseFloat(getComputedStyle(corpo).columnGap) || 0;
       var altezzaLegenda = legenda.getBoundingClientRect().height;
       var larghezzaLegenda = legenda.getBoundingClientRect().width;
-      var larghezzaDisponibile = corpo.getBoundingClientRect().width - larghezzaLegenda - GAP_CORPO;
+      var larghezzaDisponibile = corpo.getBoundingClientRect().width - larghezzaLegenda - gap;
       var lato = Math.max(LATO_MINIMO, Math.min(altezzaLegenda, larghezzaDisponibile));
       svg.style.width = lato + 'px';
       svg.style.height = lato + 'px';
@@ -3370,9 +3389,22 @@ function caricaFotoRara(card, nomeScientifico) {
     .catch(() => {});
 }
 
+const carosello = document.querySelector('.carosello-rare');
+
+function specieRareVisibili() {
+  // Unica fonte di verita': la custom property CSS --rare-visibili (3 di
+  // norma, 1 sotto i 480px - vedi media query nello style). Leggerla da
+  // qui invece di duplicare il breakpoint in JS evita che i due si
+  // disallineino.
+  const v = parseInt(getComputedStyle(carosello).getPropertyValue('--rare-visibili'), 10);
+  return v > 0 ? v : 3;
+}
+
 function renderRare() {
+  const n = specieRareVisibili();
+  if (rareIndex >= specieRare.length) rareIndex = 0;
   rareTrack.innerHTML = '';
-  const gruppo = specieRare.slice(rareIndex, rareIndex+3);
+  const gruppo = specieRare.slice(rareIndex, rareIndex + n);
   gruppo.forEach(sp => {
     const card = document.createElement('div');
     card.className = 'rara-card';
@@ -3385,16 +3417,30 @@ function renderRare() {
   });
 }
 document.getElementById('rare-next').addEventListener('click', () => {
-  rareIndex += 3;
+  const n = specieRareVisibili();
+  rareIndex += n;
   if (rareIndex >= specieRare.length) rareIndex = 0;
   renderRare();
 });
 document.getElementById('rare-prev').addEventListener('click', () => {
-  rareIndex -= 3;
-  if (rareIndex < 0) rareIndex = Math.floor((specieRare.length-1)/3)*3;
+  const n = specieRareVisibili();
+  rareIndex -= n;
+  if (rareIndex < 0) rareIndex = specieRare.length ? Math.floor((specieRare.length - 1) / n) * n : 0;
   renderRare();
 });
 renderRare();
+
+// Ricalcola solo quando il numero di card visibili cambia davvero (es.
+// rotazione iPhone che attraversa i 480px), non ad ogni pixel di resize.
+let ultimoConteggioVisibili = specieRareVisibili();
+window.addEventListener('resize', () => {
+  const n = specieRareVisibili();
+  if (n !== ultimoConteggioVisibili) {
+    ultimoConteggioVisibili = n;
+    rareIndex = 0;
+    renderRare();
+  }
+});
 </script>
 </body>
 </html>
