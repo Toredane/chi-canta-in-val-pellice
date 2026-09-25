@@ -191,6 +191,98 @@
     color: var(--lavender-deep);
   }
   section h3:first-of-type { margin-top: 8px; }
+
+  #specie table[data-sort-table] tbody td:first-child,
+  #tabella-log tbody td:nth-child(2) {
+    cursor: pointer;
+    text-decoration: underline dotted;
+    text-decoration-color: var(--lavender);
+    text-underline-offset: 3px;
+  }
+  #specie table[data-sort-table] tbody td:first-child:hover,
+  #tabella-log tbody td:nth-child(2):hover {
+    color: var(--lavender-deep);
+  }
+
+  .lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(43, 43, 36, 0.72);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    z-index: 100;
+  }
+  .lightbox-overlay[hidden] { display: none; }
+  .lightbox-box {
+    background: var(--parchment);
+    border-radius: 6px;
+    max-width: 440px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+  .lightbox-chiudi {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: var(--row-alt);
+    color: var(--ink);
+    border-radius: 50%;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .lightbox-chiudi:hover { background: var(--line); }
+  .lightbox-foto {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 4px;
+    background: var(--row-alt);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .lightbox-stato {
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    background: var(--row-alt);
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    text-align: center;
+    padding: 24px;
+  }
+  .lightbox-box h3 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin: 0 0 2px;
+    color: var(--lavender-deep);
+  }
+  .lightbox-box .scientific {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 1rem;
+  }
+  .lightbox-credito {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--line);
+    padding-top: 10px;
+    margin: 0;
+  }
+  .lightbox-credito a { color: var(--lavender-deep); }
 </style>
 </head>
 <body>
@@ -201,7 +293,7 @@
     <div class="testo-hero">
       <h1>Chi canta a Luserna&nbsp;San&nbsp;Giovanni?</h1>
       <p>Una cam puntata sulle montagne trasmette in diretta e riconosce, dal canto, gli uccelli che passano nei dintorni. Il riconoscimento vocale usa BirdNET, un modello open-source, eseguito in locale su un Raspberry Pi 5. Il registro si aggiorna al termine di ogni sessione.</p>
-      <div class="meta">Ultimo aggiornamento: 24 settembre 2026, 08:24 · 57 specie</div>
+      <div class="meta">Ultimo aggiornamento: 25 settembre 2026, 11:22 · 57 specie</div>
     </div>
   </header>
 
@@ -220,26 +312,26 @@
           </tr>
         </thead>
         <tbody>
-<tr><td>Codirosso spazzacamino</td><td class="scientific">Phoenicurus ochruros</td><td class="num">701</td></tr>
-<tr><td>Gazza</td><td class="scientific">Pica pica</td><td class="num">438</td></tr>
+<tr><td>Codirosso spazzacamino</td><td class="scientific">Phoenicurus ochruros</td><td class="num">709</td></tr>
+<tr><td>Gazza</td><td class="scientific">Pica pica</td><td class="num">442</td></tr>
 <tr><td>Codibugnolo</td><td class="scientific">Aegithalos caudatus</td><td class="num">154</td></tr>
 <tr><td>Ghiandaia</td><td class="scientific">Garrulus glandarius</td><td class="num">60</td></tr>
 <tr><td>Civetta</td><td class="scientific">Athene noctua</td><td class="num">59</td></tr>
 <tr><td>Cinciallegra</td><td class="scientific">Parus major</td><td class="num">47</td></tr>
 <tr><td>Zigolo nero</td><td class="scientific">Emberiza cirlus</td><td class="num">29</td></tr>
+<tr><td>Prispolone</td><td class="scientific">Anthus trivialis</td><td class="num">25</td></tr>
 <tr><td>Luì piccolo</td><td class="scientific">Phylloscopus collybita</td><td class="num">24</td></tr>
-<tr><td>Prispolone</td><td class="scientific">Anthus trivialis</td><td class="num">20</td></tr>
 <tr><td>Verzellino</td><td class="scientific">Serinus serinus</td><td class="num">17</td></tr>
+<tr><td>Picchio rosso maggiore</td><td class="scientific">Dendrocopos major</td><td class="num">14</td></tr>
 <tr><td>Balia nera</td><td class="scientific">Ficedula hypoleuca</td><td class="num">13</td></tr>
-<tr><td>Cornacchia nera</td><td class="scientific">Corvus corone</td><td class="num">11</td></tr>
+<tr><td>Cornacchia nera</td><td class="scientific">Corvus corone</td><td class="num">12</td></tr>
 <tr><td>Falco pellegrino</td><td class="scientific">Falco peregrinus</td><td class="num">11</td></tr>
-<tr><td>Picchio rosso maggiore</td><td class="scientific">Dendrocopos major</td><td class="num">11</td></tr>
+<tr><td>Picchio verde</td><td class="scientific">Picus viridis</td><td class="num">9</td></tr>
 <tr><td>Fringuello</td><td class="scientific">Fringilla coelebs</td><td class="num">7</td></tr>
 <tr><td>Merlo comune</td><td class="scientific">Turdus merula</td><td class="num">7</td></tr>
 <tr><td>Verdone</td><td class="scientific">Chloris chloris</td><td class="num">7</td></tr>
 <tr><td>Ballerina gialla</td><td class="scientific">Motacilla cinerea</td><td class="num">6</td></tr>
 <tr><td>Cigno minore</td><td class="scientific">Cygnus columbianus</td><td class="num">6</td></tr>
-<tr><td>Picchio verde</td><td class="scientific">Picus viridis</td><td class="num">6</td></tr>
 <tr><td>Cincia mora</td><td class="scientific">Periparus ater</td><td class="num">5</td></tr>
 <tr><td>Allocco</td><td class="scientific">Strix aluco</td><td class="num">4</td></tr>
 <tr><td>Canapiglia</td><td class="scientific">Mareca strepera</td><td class="num">4</td></tr>
@@ -300,8 +392,8 @@
 <tr><td><span class="pill">Estate 2026</span></td><td>Codibugnolo</td><td class="num">114</td></tr>
 <tr><td><span class="pill">Estate 2026</span></td><td>Civetta</td><td class="num">35</td></tr>
 <tr><td><span class="pill">Estate 2026</span></td><td>Ghiandaia</td><td class="num">21</td></tr>
-<tr><td><span class="pill">Autunno 2026</span></td><td>Codirosso spazzacamino</td><td class="num">472</td></tr>
-<tr><td><span class="pill">Autunno 2026</span></td><td>Gazza</td><td class="num">147</td></tr>
+<tr><td><span class="pill">Autunno 2026</span></td><td>Codirosso spazzacamino</td><td class="num">480</td></tr>
+<tr><td><span class="pill">Autunno 2026</span></td><td>Gazza</td><td class="num">151</td></tr>
 <tr><td><span class="pill">Autunno 2026</span></td><td>Cinciallegra</td><td class="num">41</td></tr>
 <tr><td><span class="pill">Autunno 2026</span></td><td>Codibugnolo</td><td class="num">40</td></tr>
 <tr><td><span class="pill">Autunno 2026</span></td><td>Ghiandaia</td><td class="num">39</td></tr>
@@ -384,24 +476,24 @@
           </tr>
         </thead>
         <tbody>
-<tr><td>Codirosso spazzacamino</td><td class="num">443</td><td class="num">29</td></tr>
-<tr><td>Gazza</td><td class="num">147</td><td class="num">0</td></tr>
+<tr><td>Codirosso spazzacamino</td><td class="num">451</td><td class="num">29</td></tr>
+<tr><td>Gazza</td><td class="num">151</td><td class="num">0</td></tr>
 <tr><td>Cinciallegra</td><td class="num">41</td><td class="num">0</td></tr>
 <tr><td>Codibugnolo</td><td class="num">40</td><td class="num">0</td></tr>
 <tr><td>Ghiandaia</td><td class="num">39</td><td class="num">0</td></tr>
 <tr><td>Civetta</td><td class="num">0</td><td class="num">24</td></tr>
 <tr><td>Luì piccolo</td><td class="num">21</td><td class="num">1</td></tr>
-<tr><td>Prispolone</td><td class="num">16</td><td class="num">0</td></tr>
+<tr><td>Prispolone</td><td class="num">21</td><td class="num">0</td></tr>
 <tr><td>Zigolo nero</td><td class="num">9</td><td class="num">6</td></tr>
 <tr><td>Balia nera</td><td class="num">12</td><td class="num">0</td></tr>
-<tr><td>Cornacchia nera</td><td class="num">9</td><td class="num">0</td></tr>
-<tr><td>Picchio rosso maggiore</td><td class="num">8</td><td class="num">0</td></tr>
+<tr><td>Picchio rosso maggiore</td><td class="num">11</td><td class="num">0</td></tr>
+<tr><td>Cornacchia nera</td><td class="num">10</td><td class="num">0</td></tr>
 <tr><td>Fringuello</td><td class="num">7</td><td class="num">0</td></tr>
+<tr><td>Picchio verde</td><td class="num">7</td><td class="num">0</td></tr>
 <tr><td>Ballerina gialla</td><td class="num">5</td><td class="num">0</td></tr>
 <tr><td>Falco pellegrino</td><td class="num">3</td><td class="num">2</td></tr>
 <tr><td>Cardellino</td><td class="num">4</td><td class="num">0</td></tr>
 <tr><td>Cincia mora</td><td class="num">4</td><td class="num">0</td></tr>
-<tr><td>Picchio verde</td><td class="num">4</td><td class="num">0</td></tr>
 <tr><td>Rampichino comune</td><td class="num">4</td><td class="num">0</td></tr>
 <tr><td>Cigno minore</td><td class="num">0</td><td class="num">3</td></tr>
 <tr><td>Barbagianni</td><td class="num">2</td><td class="num">0</td></tr>
@@ -445,6 +537,30 @@
           </tr>
         </thead>
         <tbody>
+<tr><td>25 set 2026, 11:19</td><td>Picchio rosso maggiore</td><td class="num">0.80</td></tr>
+<tr><td>25 set 2026, 11:18</td><td>Picchio rosso maggiore</td><td class="num">0.72</td></tr>
+<tr><td>25 set 2026, 11:18</td><td>Picchio rosso maggiore</td><td class="num">0.88</td></tr>
+<tr><td>25 set 2026, 11:18</td><td>Gazza</td><td class="num">0.90</td></tr>
+<tr><td>25 set 2026, 11:18</td><td>Gazza</td><td class="num">0.96</td></tr>
+<tr><td>25 set 2026, 11:18</td><td>Gazza</td><td class="num">0.99</td></tr>
+<tr><td>25 set 2026, 11:16</td><td>Codirosso spazzacamino</td><td class="num">0.81</td></tr>
+<tr><td>25 set 2026, 11:16</td><td>Codirosso spazzacamino</td><td class="num">0.80</td></tr>
+<tr><td>25 set 2026, 11:16</td><td>Picchio verde</td><td class="num">0.96</td></tr>
+<tr><td>25 set 2026, 11:16</td><td>Codirosso spazzacamino</td><td class="num">0.87</td></tr>
+<tr><td>25 set 2026, 11:16</td><td>Codirosso spazzacamino</td><td class="num">0.74</td></tr>
+<tr><td>25 set 2026, 11:16</td><td>Codirosso spazzacamino</td><td class="num">0.96</td></tr>
+<tr><td>25 set 2026, 11:15</td><td>Codirosso spazzacamino</td><td class="num">0.76</td></tr>
+<tr><td>25 set 2026, 11:15</td><td>Codirosso spazzacamino</td><td class="num">0.86</td></tr>
+<tr><td>25 set 2026, 11:12</td><td>Gazza</td><td class="num">0.97</td></tr>
+<tr><td>25 set 2026, 11:10</td><td>Prispolone</td><td class="num">0.81</td></tr>
+<tr><td>25 set 2026, 11:10</td><td>Prispolone</td><td class="num">0.83</td></tr>
+<tr><td>25 set 2026, 11:10</td><td>Prispolone</td><td class="num">0.94</td></tr>
+<tr><td>25 set 2026, 11:10</td><td>Codirosso spazzacamino</td><td class="num">0.81</td></tr>
+<tr><td>25 set 2026, 11:10</td><td>Prispolone</td><td class="num">0.84</td></tr>
+<tr><td>25 set 2026, 11:09</td><td>Prispolone</td><td class="num">0.88</td></tr>
+<tr><td>25 set 2026, 11:08</td><td>Picchio verde</td><td class="num">0.99</td></tr>
+<tr><td>25 set 2026, 11:08</td><td>Picchio verde</td><td class="num">0.76</td></tr>
+<tr><td>25 set 2026, 11:08</td><td>Cornacchia nera</td><td class="num">0.83</td></tr>
 <tr><td>24 set 2026, 08:21</td><td>Codirosso spazzacamino</td><td class="num">0.96</td></tr>
 <tr><td>24 set 2026, 08:21</td><td>Codirosso spazzacamino</td><td class="num">0.99</td></tr>
 <tr><td>24 set 2026, 08:21</td><td>Gazza</td><td class="num">0.94</td></tr>
@@ -2167,6 +2283,16 @@
 
 </div>
 
+<div class="lightbox-overlay" id="lightbox" hidden role="dialog" aria-modal="true" aria-labelledby="lightbox-titolo">
+  <div class="lightbox-box">
+    <button type="button" class="lightbox-chiudi" id="lightbox-chiudi" aria-label="Chiudi">×</button>
+    <div id="lightbox-contenuto-foto"></div>
+    <h3 id="lightbox-titolo"></h3>
+    <span class="scientific" id="lightbox-scientifico"></span>
+    <p class="lightbox-credito" id="lightbox-credito"></p>
+  </div>
+</div>
+
 <script>
 document.querySelectorAll('[data-sort-table]').forEach(function(table) {
   var tbody = table.querySelector('tbody');
@@ -2205,6 +2331,146 @@ if (filtro) {
     });
   });
 }
+
+(function() {
+  // Lightbox foto specie: click sul nome comune in "Specie osservate" o
+  // "Registro completo" -> foto da iNaturalist (api.inaturalist.org),
+  // con credito obbligatorio a fotografo e licenza (default_photo.attribution).
+  var overlay = document.getElementById('lightbox');
+  if (!overlay) return;
+  var elFoto = document.getElementById('lightbox-contenuto-foto');
+  var elTitolo = document.getElementById('lightbox-titolo');
+  var elScientifico = document.getElementById('lightbox-scientifico');
+  var elCredito = document.getElementById('lightbox-credito');
+  var btnChiudi = document.getElementById('lightbox-chiudi');
+  var cache = {};
+  var ultimoFocus = null;
+
+  function indiceColonna(table, chiave) {
+    var th = table.querySelector('thead th[data-key="' + chiave + '"]');
+    return th ? Array.from(th.parentNode.children).indexOf(th) : -1;
+  }
+
+  // Mappa nome comune -> nome scientifico, letta dalla tabella "Specie
+  // osservate": la tabella "Registro completo" ha solo il nome comune.
+  var tabellaSpecie = document.querySelector('#specie table[data-sort-table]');
+  var mappaScientifico = {};
+  if (tabellaSpecie) {
+    var ciComuneSpecie = indiceColonna(tabellaSpecie, 'comune');
+    var ciScientificoSpecie = indiceColonna(tabellaSpecie, 'scientifico');
+    if (ciComuneSpecie > -1 && ciScientificoSpecie > -1) {
+      tabellaSpecie.querySelectorAll('tbody tr').forEach(function(tr) {
+        var comune = tr.children[ciComuneSpecie].textContent.trim();
+        var scientifico = tr.children[ciScientificoSpecie].textContent.trim();
+        if (comune && scientifico) mappaScientifico[comune] = scientifico;
+      });
+    }
+  }
+
+  function suEsc(e) {
+    if (e.key === 'Escape') chiudi();
+  }
+
+  function apri() {
+    overlay.hidden = false;
+    ultimoFocus = document.activeElement;
+    btnChiudi.focus();
+    document.addEventListener('keydown', suEsc);
+  }
+
+  function chiudi() {
+    overlay.hidden = true;
+    document.removeEventListener('keydown', suEsc);
+    if (ultimoFocus && ultimoFocus.focus) ultimoFocus.focus();
+  }
+
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) chiudi();
+  });
+  btnChiudi.addEventListener('click', chiudi);
+
+  function escapeHtml(testo) {
+    var div = document.createElement('div');
+    div.textContent = testo;
+    return div.innerHTML;
+  }
+
+  function mostraCaricamento(comune, scientifico) {
+    elFoto.innerHTML = '<div class="lightbox-stato">Caricamento foto…</div>';
+    elTitolo.textContent = comune;
+    elScientifico.textContent = scientifico;
+    elCredito.innerHTML = '';
+  }
+
+  function mostraRisultato(comune, scientifico, taxon) {
+    elTitolo.textContent = comune;
+    elScientifico.textContent = scientifico;
+    var foto = taxon && taxon.default_photo;
+    var linkTaxon = taxon && typeof taxon.id === 'number'
+      ? '<a href="https://www.inaturalist.org/taxa/' + taxon.id + '" target="_blank" rel="noopener">vedi su iNaturalist</a>'
+      : '';
+    if (foto && foto.medium_url) {
+      var img = document.createElement('img');
+      img.className = 'lightbox-foto';
+      img.src = foto.medium_url;
+      img.alt = comune;
+      elFoto.innerHTML = '';
+      elFoto.appendChild(img);
+      var credito = foto.attribution ? escapeHtml(foto.attribution) : 'Credito non disponibile';
+      elCredito.innerHTML = credito + (linkTaxon ? ' — ' + linkTaxon : '');
+    } else {
+      elFoto.innerHTML = '<div class="lightbox-stato">Nessuna foto disponibile su iNaturalist per questa specie.</div>';
+      elCredito.innerHTML = linkTaxon;
+    }
+  }
+
+  function mostraErrore() {
+    elFoto.innerHTML = '<div class="lightbox-stato">Foto non disponibile al momento (errore di rete).</div>';
+    elCredito.innerHTML = '';
+  }
+
+  function apriConSpecie(comune, scientifico) {
+    apri();
+    mostraCaricamento(comune, scientifico);
+    if (Object.prototype.hasOwnProperty.call(cache, scientifico)) {
+      mostraRisultato(comune, scientifico, cache[scientifico]);
+      return;
+    }
+    fetch('https://api.inaturalist.org/v1/taxa?q=' + encodeURIComponent(scientifico) + '&rank=species')
+      .then(function(r) { return r.json(); })
+      .then(function(dati) {
+        var risultati = (dati && dati.results) || [];
+        var match = risultati.find(function(t) {
+          return t.name && t.name.toLowerCase() === scientifico.toLowerCase();
+        }) || risultati[0] || null;
+        cache[scientifico] = match;
+        mostraRisultato(comune, scientifico, match);
+      })
+      .catch(function() {
+        mostraErrore();
+      });
+  }
+
+  function collegaTabella(table, mappa) {
+    if (!table) return;
+    var ciComune = indiceColonna(table, 'comune');
+    var ciScientifico = indiceColonna(table, 'scientifico');
+    if (ciComune === -1) return;
+    table.addEventListener('click', function(e) {
+      var td = e.target.closest('td');
+      if (!td) return;
+      var tr = td.parentNode;
+      if (Array.from(tr.children).indexOf(td) !== ciComune) return;
+      var comune = td.textContent.trim();
+      var scientifico = ciScientifico > -1 ? tr.children[ciScientifico].textContent.trim() : mappa[comune];
+      if (!scientifico) return;
+      apriConSpecie(comune, scientifico);
+    });
+  }
+
+  collegaTabella(tabellaSpecie, mappaScientifico);
+  collegaTabella(document.getElementById('tabella-log'), mappaScientifico);
+})();
 </script>
 
 </body>
