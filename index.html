@@ -213,10 +213,32 @@
   @media (max-width: 640px) { .grid-torte { grid-template-columns: 1fr; } }
   .torta-card { text-align: center; }
   .torta-card h4 { font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 1rem; margin: 0 0 12px; color: var(--ink); }
-  .torta-corpo { display: flex; align-items: center; justify-content: center; gap: 18px; }
-  .torta-legenda { list-style: none; padding: 0; margin: 0; font-size: 0.82rem; color: var(--ink-soft); text-align: left; }
+  /* Il diametro della torta segue l'altezza della legenda via JS (vedi
+     script "adatta torte" in fondo alla pagina), non puro CSS: un
+     tentativo con align-items:stretch + aspect-ratio sull'SVG si e'
+     rivelato instabile - senza un limite legato allo spazio orizzontale
+     residuo, l'SVG cresceva fino a riempire l'intera riga e la legenda
+     collassava a larghezza zero (misurato, non solo visivo). La legenda ha
+     quindi una larghezza FISSA (230px, ne' grow ne' shrink): cosi' la sua
+     altezza dipende solo dal proprio contenuto, mai dalla torta - nessuna
+     circolarita' possibile. Valori qui sotto sono il fallback prima che lo
+     script giri (e per il caso senza JS). */
+  .torta-corpo { display: flex; align-items: flex-start; justify-content: center; gap: 18px; }
+  .torta-corpo svg { flex: 0 0 auto; width: 180px; height: 180px; }
+  .torta-legenda { list-style: none; padding: 0; margin: 0; font-size: 0.82rem; color: var(--ink-soft); text-align: left; flex: 0 0 230px; }
   .torta-legenda li { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
   .torta-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  /* Sotto i 480px (telefoni stretti) una legenda di 9 voci puo' rendere la
+     torta troppo grande e schiacciare il layout affiancato: qui si passa a
+     torta sopra, legenda sotto, con un diametro fisso comodo invece che
+     agganciato all'altezza della legenda. Lo script "adatta torte" salta
+     questo caso (controlla flex-direction) e lascia fare al CSS. */
+  @media (max-width: 480px) {
+    .torta-corpo { flex-direction: column; align-items: center; }
+    .torta-corpo svg { width: 140px; height: 140px; }
+    .torta-legenda { flex-basis: auto; width: 100%; }
+  }
 
   .carosello-rare { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
   .car-viewport { flex: 1; overflow: hidden; }
@@ -386,7 +408,7 @@
     <div class="testo-hero">
       <h1>Chi canta in Val&nbsp;Pellice?</h1>
       <p>Una cam puntata sulle montagne trasmette in diretta e riconosce, dal canto, gli uccelli che passano nei dintorni. Il riconoscimento vocale usa BirdNET, un modello open-source, eseguito in locale su un Raspberry Pi 5. Il registro si aggiorna al termine di ogni sessione.</p>
-      <div class="meta">Ultimo aggiornamento: 25 settembre 2026, 23:30 · 63 specie</div>
+      <div class="meta">Ultimo aggiornamento: 25 settembre 2026, 23:57 · 63 specie</div>
     </div>
   </header>
 
@@ -402,7 +424,7 @@
   <!-- ESPORTA.PY: righe reali di "Specie osservate" -->
   <section id="specie">
     <h2>Specie osservate</h2>
-    <p class="sub">Ogni specie riconosciuta, con il totale delle osservazioni raccolte finora.</p>
+    <p class="sub">Le 10 specie più osservate.</p>
     <div class="table-scroll" id="scroll-specie">
       <table data-sort-table>
         <thead>
@@ -423,59 +445,6 @@
 <tr><td>Prispolone</td><td class="scientific">Anthus trivialis</td><td class="num">32</td></tr>
 <tr><td>Zigolo nero</td><td class="scientific">Emberiza cirlus</td><td class="num">29</td></tr>
 <tr><td>Picchio rosso maggiore</td><td class="scientific">Dendrocopos major</td><td class="num">27</td></tr>
-<tr><td>Verzellino</td><td class="scientific">Serinus serinus</td><td class="num">17</td></tr>
-<tr><td>Balia nera</td><td class="scientific">Ficedula hypoleuca</td><td class="num">16</td></tr>
-<tr><td>Cornacchia nera</td><td class="scientific">Corvus corone</td><td class="num">16</td></tr>
-<tr><td>Picchio verde</td><td class="scientific">Picus viridis</td><td class="num">16</td></tr>
-<tr><td>Falco pellegrino</td><td class="scientific">Falco peregrinus</td><td class="num">13</td></tr>
-<tr><td>Ballerina gialla</td><td class="scientific">Motacilla cinerea</td><td class="num">9</td></tr>
-<tr><td>Passera europea</td><td class="scientific">Passer domesticus</td><td class="num">8</td></tr>
-<tr><td>Cigno minore</td><td class="scientific">Cygnus columbianus</td><td class="num">7</td></tr>
-<tr><td>Fringuello</td><td class="scientific">Fringilla coelebs</td><td class="num">7</td></tr>
-<tr><td>Merlo comune</td><td class="scientific">Turdus merula</td><td class="num">7</td></tr>
-<tr><td>Verdone</td><td class="scientific">Chloris chloris</td><td class="num">7</td></tr>
-<tr><td>Pettirosso</td><td class="scientific">Erithacus rubecula</td><td class="num">6</td></tr>
-<tr><td>Cardellino</td><td class="scientific">Carduelis carduelis</td><td class="num">5</td></tr>
-<tr><td>Cincia mora</td><td class="scientific">Periparus ater</td><td class="num">5</td></tr>
-<tr><td>Corvo comune</td><td class="scientific">Corvus frugilegus</td><td class="num">5</td></tr>
-<tr><td>Allocco</td><td class="scientific">Strix aluco</td><td class="num">4</td></tr>
-<tr><td>Ballerina bianca</td><td class="scientific">Motacilla alba</td><td class="num">4</td></tr>
-<tr><td>Canapiglia</td><td class="scientific">Mareca strepera</td><td class="num">4</td></tr>
-<tr><td>Rampichino comune</td><td class="scientific">Certhia brachydactyla</td><td class="num">4</td></tr>
-<tr><td>Tordo sassello</td><td class="scientific">Turdus iliacus</td><td class="num">4</td></tr>
-<tr><td>Airone cenerino</td><td class="scientific">Ardea cinerea</td><td class="num">3</td></tr>
-<tr><td>Barbagianni</td><td class="scientific">Tyto alba</td><td class="num">3</td></tr>
-<tr><td>Cinciarella</td><td class="scientific">Cyanistes caeruleus</td><td class="num">3</td></tr>
-<tr><td>Cornacchia grigia</td><td class="scientific">Corvus cornix</td><td class="num">3</td></tr>
-<tr><td>Corvo imperiale</td><td class="scientific">Corvus corax</td><td class="num">3</td></tr>
-<tr><td>Folaga</td><td class="scientific">Fulica atra</td><td class="num">3</td></tr>
-<tr><td>Marsh Tit</td><td class="scientific">Poecile palustris</td><td class="num">3</td></tr>
-<tr><td>Assiolo</td><td class="scientific">Otus scops</td><td class="num">2</td></tr>
-<tr><td>Bigiarella</td><td class="scientific">Curruca curruca</td><td class="num">2</td></tr>
-<tr><td>Common Buzzard</td><td class="scientific">Buteo buteo</td><td class="num">2</td></tr>
-<tr><td>Gufo reale</td><td class="scientific">Bubo bubo</td><td class="num">2</td></tr>
-<tr><td>Rigogolo</td><td class="scientific">Oriolus oriolus</td><td class="num">2</td></tr>
-<tr><td>Taccola</td><td class="scientific">Corvus monedula</td><td class="num">2</td></tr>
-<tr><td>Tarabusino</td><td class="scientific">Ixobrychus minutus</td><td class="num">2</td></tr>
-<tr><td>Upupa</td><td class="scientific">Upupa epops</td><td class="num">2</td></tr>
-<tr><td>Capinera</td><td class="scientific">Sylvia atricapilla</td><td class="num">1</td></tr>
-<tr><td>Codirosso</td><td class="scientific">Phoenicurus phoenicurus</td><td class="num">1</td></tr>
-<tr><td>Common Kingfisher</td><td class="scientific">Alcedo atthis</td><td class="num">1</td></tr>
-<tr><td>Crociere</td><td class="scientific">Loxia curvirostra</td><td class="num">1</td></tr>
-<tr><td>Eurasian Collared-Dove</td><td class="scientific">Streptopelia decaocto</td><td class="num">1</td></tr>
-<tr><td>Fiorrancino</td><td class="scientific">Regulus ignicapilla</td><td class="num">1</td></tr>
-<tr><td>Frosone</td><td class="scientific">Coccothraustes coccothraustes</td><td class="num">1</td></tr>
-<tr><td>Germano reale</td><td class="scientific">Anas platyrhynchos</td><td class="num">1</td></tr>
-<tr><td>Gheppio</td><td class="scientific">Falco tinnunculus</td><td class="num">1</td></tr>
-<tr><td>Green Sandpiper</td><td class="scientific">Tringa ochropus</td><td class="num">1</td></tr>
-<tr><td>Gruccione</td><td class="scientific">Merops apiaster</td><td class="num">1</td></tr>
-<tr><td>Mignattino piombato</td><td class="scientific">Chlidonias hybrida</td><td class="num">1</td></tr>
-<tr><td>Passera mattugia</td><td class="scientific">Passer montanus</td><td class="num">1</td></tr>
-<tr><td>Pigliamosche</td><td class="scientific">Muscicapa striata</td><td class="num">1</td></tr>
-<tr><td>Piro piro piccolo</td><td class="scientific">Actitis hypoleucos</td><td class="num">1</td></tr>
-<tr><td>Piviere dorato</td><td class="scientific">Pluvialis apricaria</td><td class="num">1</td></tr>
-<tr><td>Salciaiola</td><td class="scientific">Locustella luscinioides</td><td class="num">1</td></tr>
-<tr><td>Tordo bottaccio</td><td class="scientific">Turdus philomelos</td><td class="num">1</td></tr>
         </tbody>
       </table>
     </div>
@@ -488,12 +457,12 @@
     <div class="grid-torte">
     <div class="torta-card">
       <h4>Estate 2026</h4>
-      <div class="torta-corpo"><svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Grafico a torta"><g transform="rotate(-90 60 60)"><circle cx="60" cy="60" r="45" fill="none" stroke="#6B5B95" stroke-width="16" stroke-dasharray="102.21 180.53" stroke-dashoffset="-0.00"><title>Gazza: 291</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#B9782F" stroke-width="16" stroke-dasharray="80.43 202.31" stroke-dashoffset="-102.21"><title>Codirosso spazzacamino: 229</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#7A8B6F" stroke-width="16" stroke-dasharray="40.04 242.70" stroke-dashoffset="-182.64"><title>Codibugnolo: 114</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#4E4270" stroke-width="16" stroke-dasharray="12.29 270.45" stroke-dashoffset="-222.68"><title>Civetta: 35</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#A6543C" stroke-width="16" stroke-dasharray="7.38 275.37" stroke-dashoffset="-234.98"><title>Ghiandaia: 21</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#4C7A8C" stroke-width="16" stroke-dasharray="5.97 276.77" stroke-dashoffset="-242.35"><title>Verzellino: 17</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#C9A227" stroke-width="16" stroke-dasharray="4.92 277.83" stroke-dashoffset="-248.32"><title>Zigolo nero: 14</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#8C5E58" stroke-width="16" stroke-dasharray="2.46 280.28" stroke-dashoffset="-253.24"><title>Merlo comune: 7</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#9C9484" stroke-width="16" stroke-dasharray="27.05 255.70" stroke-dashoffset="-255.70"><title>Altre specie: 77</title></circle></g></svg><ul class="torta-legenda"><li><span class="torta-dot" style="background:#6B5B95"></span>Gazza (291)</li><li><span class="torta-dot" style="background:#B9782F"></span>Codirosso spazzacamino (229)</li><li><span class="torta-dot" style="background:#7A8B6F"></span>Codibugnolo (114)</li><li><span class="torta-dot" style="background:#4E4270"></span>Civetta (35)</li><li><span class="torta-dot" style="background:#A6543C"></span>Ghiandaia (21)</li><li><span class="torta-dot" style="background:#4C7A8C"></span>Verzellino (17)</li><li><span class="torta-dot" style="background:#C9A227"></span>Zigolo nero (14)</li><li><span class="torta-dot" style="background:#8C5E58"></span>Merlo comune (7)</li><li><span class="torta-dot" style="background:#9C9484"></span>Altre specie (77)</li></ul></div>
+      <div class="torta-corpo"><svg viewBox="0 0 120 120" role="img" aria-label="Grafico a torta"><g transform="rotate(-90 60 60)"><circle cx="60" cy="60" r="45" fill="none" stroke="#6B5B95" stroke-width="16" stroke-dasharray="102.21 180.53" stroke-dashoffset="-0.00"><title>Gazza: 291</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#B9782F" stroke-width="16" stroke-dasharray="80.43 202.31" stroke-dashoffset="-102.21"><title>Codirosso spazzacamino: 229</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#7A8B6F" stroke-width="16" stroke-dasharray="40.04 242.70" stroke-dashoffset="-182.64"><title>Codibugnolo: 114</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#4E4270" stroke-width="16" stroke-dasharray="12.29 270.45" stroke-dashoffset="-222.68"><title>Civetta: 35</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#A6543C" stroke-width="16" stroke-dasharray="7.38 275.37" stroke-dashoffset="-234.98"><title>Ghiandaia: 21</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#4C7A8C" stroke-width="16" stroke-dasharray="5.97 276.77" stroke-dashoffset="-242.35"><title>Verzellino: 17</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#C9A227" stroke-width="16" stroke-dasharray="4.92 277.83" stroke-dashoffset="-248.32"><title>Zigolo nero: 14</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#8C5E58" stroke-width="16" stroke-dasharray="2.46 280.28" stroke-dashoffset="-253.24"><title>Merlo comune: 7</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#9C9484" stroke-width="16" stroke-dasharray="27.05 255.70" stroke-dashoffset="-255.70"><title>Altre specie: 77</title></circle></g></svg><ul class="torta-legenda"><li><span class="torta-dot" style="background:#6B5B95"></span>Gazza (291)</li><li><span class="torta-dot" style="background:#B9782F"></span>Codirosso spazzacamino (229)</li><li><span class="torta-dot" style="background:#7A8B6F"></span>Codibugnolo (114)</li><li><span class="torta-dot" style="background:#4E4270"></span>Civetta (35)</li><li><span class="torta-dot" style="background:#A6543C"></span>Ghiandaia (21)</li><li><span class="torta-dot" style="background:#4C7A8C"></span>Verzellino (17)</li><li><span class="torta-dot" style="background:#C9A227"></span>Zigolo nero (14)</li><li><span class="torta-dot" style="background:#8C5E58"></span>Merlo comune (7)</li><li><span class="torta-dot" style="background:#9C9484"></span>Altre specie (77)</li></ul></div>
     </div>
 
     <div class="torta-card">
       <h4>Autunno 2026</h4>
-      <div class="torta-corpo"><svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Grafico a torta"><g transform="rotate(-90 60 60)"><circle cx="60" cy="60" r="45" fill="none" stroke="#6B5B95" stroke-width="16" stroke-dasharray="106.05 176.69" stroke-dashoffset="-0.00"><title>Codirosso spazzacamino: 632</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#B9782F" stroke-width="16" stroke-dasharray="58.39 224.35" stroke-dashoffset="-106.05"><title>Gazza: 348</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#7A8B6F" stroke-width="16" stroke-dasharray="56.05 226.70" stroke-dashoffset="-164.44"><title>Codibugnolo: 334</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#4E4270" stroke-width="16" stroke-dasharray="10.74 272.00" stroke-dashoffset="-220.49"><title>Ghiandaia: 64</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#A6543C" stroke-width="16" stroke-dasharray="7.22 275.53" stroke-dashoffset="-231.23"><title>Cinciallegra: 43</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#4C7A8C" stroke-width="16" stroke-dasharray="6.71 276.03" stroke-dashoffset="-238.44"><title>Luì piccolo: 40</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#C9A227" stroke-width="16" stroke-dasharray="4.70 278.04" stroke-dashoffset="-245.16"><title>Prispolone: 28</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#8C5E58" stroke-width="16" stroke-dasharray="4.03 278.72" stroke-dashoffset="-249.85"><title>Civetta: 24</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#9C9484" stroke-width="16" stroke-dasharray="28.86 253.88" stroke-dashoffset="-253.88"><title>Altre specie: 172</title></circle></g></svg><ul class="torta-legenda"><li><span class="torta-dot" style="background:#6B5B95"></span>Codirosso spazzacamino (632)</li><li><span class="torta-dot" style="background:#B9782F"></span>Gazza (348)</li><li><span class="torta-dot" style="background:#7A8B6F"></span>Codibugnolo (334)</li><li><span class="torta-dot" style="background:#4E4270"></span>Ghiandaia (64)</li><li><span class="torta-dot" style="background:#A6543C"></span>Cinciallegra (43)</li><li><span class="torta-dot" style="background:#4C7A8C"></span>Luì piccolo (40)</li><li><span class="torta-dot" style="background:#C9A227"></span>Prispolone (28)</li><li><span class="torta-dot" style="background:#8C5E58"></span>Civetta (24)</li><li><span class="torta-dot" style="background:#9C9484"></span>Altre specie (172)</li></ul></div>
+      <div class="torta-corpo"><svg viewBox="0 0 120 120" role="img" aria-label="Grafico a torta"><g transform="rotate(-90 60 60)"><circle cx="60" cy="60" r="45" fill="none" stroke="#6B5B95" stroke-width="16" stroke-dasharray="106.05 176.69" stroke-dashoffset="-0.00"><title>Codirosso spazzacamino: 632</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#B9782F" stroke-width="16" stroke-dasharray="58.39 224.35" stroke-dashoffset="-106.05"><title>Gazza: 348</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#7A8B6F" stroke-width="16" stroke-dasharray="56.05 226.70" stroke-dashoffset="-164.44"><title>Codibugnolo: 334</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#4E4270" stroke-width="16" stroke-dasharray="10.74 272.00" stroke-dashoffset="-220.49"><title>Ghiandaia: 64</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#A6543C" stroke-width="16" stroke-dasharray="7.22 275.53" stroke-dashoffset="-231.23"><title>Cinciallegra: 43</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#4C7A8C" stroke-width="16" stroke-dasharray="6.71 276.03" stroke-dashoffset="-238.44"><title>Luì piccolo: 40</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#C9A227" stroke-width="16" stroke-dasharray="4.70 278.04" stroke-dashoffset="-245.16"><title>Prispolone: 28</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#8C5E58" stroke-width="16" stroke-dasharray="4.03 278.72" stroke-dashoffset="-249.85"><title>Civetta: 24</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#9C9484" stroke-width="16" stroke-dasharray="28.86 253.88" stroke-dashoffset="-253.88"><title>Altre specie: 172</title></circle></g></svg><ul class="torta-legenda"><li><span class="torta-dot" style="background:#6B5B95"></span>Codirosso spazzacamino (632)</li><li><span class="torta-dot" style="background:#B9782F"></span>Gazza (348)</li><li><span class="torta-dot" style="background:#7A8B6F"></span>Codibugnolo (334)</li><li><span class="torta-dot" style="background:#4E4270"></span>Ghiandaia (64)</li><li><span class="torta-dot" style="background:#A6543C"></span>Cinciallegra (43)</li><li><span class="torta-dot" style="background:#4C7A8C"></span>Luì piccolo (40)</li><li><span class="torta-dot" style="background:#C9A227"></span>Prispolone (28)</li><li><span class="torta-dot" style="background:#8C5E58"></span>Civetta (24)</li><li><span class="torta-dot" style="background:#9C9484"></span>Altre specie (172)</li></ul></div>
     </div>
     </div>
   </section>
@@ -526,40 +495,6 @@
 <tr><td>Merlo comune</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:7"></div></div></td><td class="num">0</td><td class="num">7</td></tr>
 <tr><td>Cinciallegra</td><td><div class="mini-bar"><div class="mini-luce" style="flex:6"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">6</td><td class="num">0</td></tr>
 <tr><td>Falco pellegrino</td><td><div class="mini-bar"><div class="mini-luce" style="flex:3"></div><div class="mini-buio" style="flex:3"></div></div></td><td class="num">3</td><td class="num">3</td></tr>
-<tr><td>Verdone</td><td><div class="mini-bar"><div class="mini-luce" style="flex:6"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">6</td><td class="num">0</td></tr>
-<tr><td>Canapiglia</td><td><div class="mini-bar"><div class="mini-luce" style="flex:4"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">4</td><td class="num">0</td></tr>
-<tr><td>Passera europea</td><td><div class="mini-bar"><div class="mini-luce" style="flex:4"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">4</td><td class="num">0</td></tr>
-<tr><td>Prispolone</td><td><div class="mini-bar"><div class="mini-luce" style="flex:4"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">4</td><td class="num">0</td></tr>
-<tr><td>Allocco</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:3"></div></div></td><td class="num">0</td><td class="num">3</td></tr>
-<tr><td>Ballerina bianca</td><td><div class="mini-bar"><div class="mini-luce" style="flex:3"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">3</td><td class="num">0</td></tr>
-<tr><td>Cigno minore</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:3"></div></div></td><td class="num">0</td><td class="num">3</td></tr>
-<tr><td>Picchio rosso maggiore</td><td><div class="mini-bar"><div class="mini-luce" style="flex:3"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">3</td><td class="num">0</td></tr>
-<tr><td>Cornacchia nera</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>Corvo comune</td><td><div class="mini-bar"><div class="mini-luce" style="flex:2"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">2</td><td class="num">0</td></tr>
-<tr><td>Folaga</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>Luì piccolo</td><td><div class="mini-bar"><div class="mini-luce" style="flex:2"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">2</td><td class="num">0</td></tr>
-<tr><td>Pettirosso</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:2"></div></div></td><td class="num">0</td><td class="num">2</td></tr>
-<tr><td>Picchio verde</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>Rigogolo</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:2"></div></div></td><td class="num">0</td><td class="num">2</td></tr>
-<tr><td>Tarabusino</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>Tordo sassello</td><td><div class="mini-bar"><div class="mini-luce" style="flex:2"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">2</td><td class="num">0</td></tr>
-<tr><td>Airone cenerino</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Balia nera</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Ballerina gialla</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Barbagianni</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">0</td><td class="num">1</td></tr>
-<tr><td>Cincia mora</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Cinciarella</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Corvo imperiale</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">0</td><td class="num">1</td></tr>
-<tr><td>Crociere</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Frosone</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Germano reale</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Gruccione</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">0</td><td class="num">1</td></tr>
-<tr><td>Gufo reale</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">0</td><td class="num">1</td></tr>
-<tr><td>Mignattino piombato</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Passera mattugia</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Pigliamosche</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Salciaiola</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Taccola</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -586,46 +521,6 @@
 <tr><td>Civetta</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:24"></div></div></td><td class="num">0</td><td class="num">24</td></tr>
 <tr><td>Picchio rosso maggiore</td><td><div class="mini-bar"><div class="mini-luce" style="flex:24"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">24</td><td class="num">0</td></tr>
 <tr><td>Balia nera</td><td><div class="mini-bar"><div class="mini-luce" style="flex:15"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">15</td><td class="num">0</td></tr>
-<tr><td>Zigolo nero</td><td><div class="mini-bar"><div class="mini-luce" style="flex:9"></div><div class="mini-buio" style="flex:6"></div></div></td><td class="num">9</td><td class="num">6</td></tr>
-<tr><td>Cornacchia nera</td><td><div class="mini-bar"><div class="mini-luce" style="flex:14"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">14</td><td class="num">0</td></tr>
-<tr><td>Picchio verde</td><td><div class="mini-bar"><div class="mini-luce" style="flex:14"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">14</td><td class="num">0</td></tr>
-<tr><td>Ballerina gialla</td><td><div class="mini-bar"><div class="mini-luce" style="flex:8"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">8</td><td class="num">0</td></tr>
-<tr><td>Falco pellegrino</td><td><div class="mini-bar"><div class="mini-luce" style="flex:5"></div><div class="mini-buio" style="flex:2"></div></div></td><td class="num">5</td><td class="num">2</td></tr>
-<tr><td>Fringuello</td><td><div class="mini-bar"><div class="mini-luce" style="flex:7"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">7</td><td class="num">0</td></tr>
-<tr><td>Cardellino</td><td><div class="mini-bar"><div class="mini-luce" style="flex:5"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">5</td><td class="num">0</td></tr>
-<tr><td>Cigno minore</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:4"></div></div></td><td class="num">0</td><td class="num">4</td></tr>
-<tr><td>Cincia mora</td><td><div class="mini-bar"><div class="mini-luce" style="flex:4"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">4</td><td class="num">0</td></tr>
-<tr><td>Passera europea</td><td><div class="mini-bar"><div class="mini-luce" style="flex:4"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">4</td><td class="num">0</td></tr>
-<tr><td>Pettirosso</td><td><div class="mini-bar"><div class="mini-luce" style="flex:4"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">4</td><td class="num">0</td></tr>
-<tr><td>Rampichino comune</td><td><div class="mini-bar"><div class="mini-luce" style="flex:4"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">4</td><td class="num">0</td></tr>
-<tr><td>Cornacchia grigia</td><td><div class="mini-bar"><div class="mini-luce" style="flex:3"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">3</td><td class="num">0</td></tr>
-<tr><td>Corvo comune</td><td><div class="mini-bar"><div class="mini-luce" style="flex:2"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">2</td><td class="num">1</td></tr>
-<tr><td>Marsh Tit</td><td><div class="mini-bar"><div class="mini-luce" style="flex:3"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">3</td><td class="num">0</td></tr>
-<tr><td>Airone cenerino</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:2"></div></div></td><td class="num">0</td><td class="num">2</td></tr>
-<tr><td>Assiolo</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:2"></div></div></td><td class="num">0</td><td class="num">2</td></tr>
-<tr><td>Barbagianni</td><td><div class="mini-bar"><div class="mini-luce" style="flex:2"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">2</td><td class="num">0</td></tr>
-<tr><td>Bigiarella</td><td><div class="mini-bar"><div class="mini-luce" style="flex:2"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">2</td><td class="num">0</td></tr>
-<tr><td>Cinciarella</td><td><div class="mini-bar"><div class="mini-luce" style="flex:2"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">2</td><td class="num">0</td></tr>
-<tr><td>Common Buzzard</td><td><div class="mini-bar"><div class="mini-luce" style="flex:2"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">2</td><td class="num">0</td></tr>
-<tr><td>Corvo imperiale</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:2"></div></div></td><td class="num">0</td><td class="num">2</td></tr>
-<tr><td>Tordo sassello</td><td><div class="mini-bar"><div class="mini-luce" style="flex:2"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">2</td><td class="num">0</td></tr>
-<tr><td>Upupa</td><td><div class="mini-bar"><div class="mini-luce" style="flex:2"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">2</td><td class="num">0</td></tr>
-<tr><td>Allocco</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">0</td><td class="num">1</td></tr>
-<tr><td>Ballerina bianca</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Capinera</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Codirosso</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Common Kingfisher</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Eurasian Collared-Dove</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Fiorrancino</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Folaga</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Gheppio</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">0</td><td class="num">1</td></tr>
-<tr><td>Green Sandpiper</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Gufo reale</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">0</td><td class="num">1</td></tr>
-<tr><td>Piro piro piccolo</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Piviere dorato</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">0</td><td class="num">1</td></tr>
-<tr><td>Taccola</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Tordo bottaccio</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>Verdone</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -3207,6 +3102,38 @@ if (filtro) {
     });
   });
 }
+
+(function() {
+  // Diametro della torta = altezza della legenda accanto (vedi commento
+  // CSS su .torta-corpo): la legenda ha larghezza fissa via CSS, quindi la
+  // sua altezza dipende solo dal proprio contenuto, mai dalla torta - si
+  // puo' leggere e usare senza rischio di ciclo. Sotto i 480px il CSS passa
+  // a colonna con torta a dimensione fissa: qui non si tocca nulla.
+  var GAP_CORPO = 18;
+  var LATO_MINIMO = 80;
+
+  function adattaTorte() {
+    document.querySelectorAll('.torta-corpo').forEach(function(corpo) {
+      if (getComputedStyle(corpo).flexDirection === 'column') return;
+      var svg = corpo.querySelector('svg');
+      var legenda = corpo.querySelector('.torta-legenda');
+      if (!svg || !legenda) return;
+      var altezzaLegenda = legenda.getBoundingClientRect().height;
+      var larghezzaLegenda = legenda.getBoundingClientRect().width;
+      var larghezzaDisponibile = corpo.getBoundingClientRect().width - larghezzaLegenda - GAP_CORPO;
+      var lato = Math.max(LATO_MINIMO, Math.min(altezzaLegenda, larghezzaDisponibile));
+      svg.style.width = lato + 'px';
+      svg.style.height = lato + 'px';
+    });
+  }
+
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(adattaTorte);
+    document.querySelectorAll('.torta-legenda').forEach(function(el) { ro.observe(el); });
+  }
+  window.addEventListener('resize', adattaTorte);
+  adattaTorte();
+})();
 
 (function() {
   // Lightbox foto specie: click sul nome comune in "Specie osservate",
