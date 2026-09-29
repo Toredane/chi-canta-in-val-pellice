@@ -204,10 +204,6 @@
   .legenda-luce-buio span { display: inline-flex; align-items: center; gap: 6px; }
   .legenda-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
 
-  .legenda-alba-tramonto { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 14px; }
-  .legenda-alba-tramonto span { display: inline-flex; align-items: center; gap: 6px; }
-  .legenda-linea { width: 2px; height: 14px; background: var(--ink); display: inline-block; }
-
   .grid-alba-tramonto { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
   @media (max-width: 640px) { .grid-alba-tramonto { grid-template-columns: 1fr; } }
   .fascia-sub { color: var(--ink-soft); font-size: 0.88rem; margin: 0 0 10px; font-variant-numeric: tabular-nums; }
@@ -240,6 +236,12 @@
   .div-bar .lato-prima b { background: var(--lavender); border-radius: 2px 0 0 2px; }
   .div-bar .lato-dopo b { background: var(--amber); border-radius: 0 2px 2px 0; }
   .div-bar .valore { font-size: 0.72rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  /* Tramonto: i colori seguono la luce, non prima/dopo - prima del
+     tramonto c'e' ancora luce (ambra), dopo e' buio (viola). Le barre
+     restano dallo stesso lato (sinistra=prima, destra=dopo) dell'Alba:
+     cambia solo il colore, via l'id gia' univoco della tabella. */
+  #scroll-tramonto .lato-prima b { background: var(--amber); }
+  #scroll-tramonto .lato-dopo b { background: var(--lavender); }
 
   .grid-torte {
     display: grid;
@@ -460,7 +462,7 @@
     <div class="testo-hero">
       <h1>Chi canta in Val&nbsp;Pellice?</h1>
       <p>Una cam puntata sulle montagne trasmette in diretta e riconosce, dal canto, gli uccelli che passano nei dintorni. Il riconoscimento vocale usa BirdNET, un modello open-source, eseguito in locale su un Raspberry Pi 5. Il registro si aggiorna al termine di ogni sessione.</p>
-      <div class="meta">Ultimo aggiornamento: 29 settembre 2026, 09:37 · 110 ore totali di ascolto · 73 specie osservate</div>
+      <div class="meta">Ultimo aggiornamento: 29 settembre 2026, 09:48 · 110 ore totali di ascolto · 74 specie osservate</div>
     </div>
   </header>
 
@@ -487,9 +489,9 @@
           </tr>
         </thead>
         <tbody>
-<tr><td>Codirosso spazzacamino</td><td class="scientific">Phoenicurus ochruros</td><td class="num">1146</td></tr>
-<tr><td>Gazza</td><td class="scientific">Pica pica</td><td class="num">1067</td></tr>
-<tr><td>Codibugnolo</td><td class="scientific">Aegithalos caudatus</td><td class="num">470</td></tr>
+<tr><td>Codirosso spazzacamino</td><td class="scientific">Phoenicurus ochruros</td><td class="num">1153</td></tr>
+<tr><td>Gazza</td><td class="scientific">Pica pica</td><td class="num">1073</td></tr>
+<tr><td>Codibugnolo</td><td class="scientific">Aegithalos caudatus</td><td class="num">504</td></tr>
 <tr><td>Pettirosso</td><td class="scientific">Erithacus rubecula</td><td class="num">171</td></tr>
 <tr><td>Civetta</td><td class="scientific">Athene noctua</td><td class="num">148</td></tr>
 <tr><td>Ghiandaia</td><td class="scientific">Garrulus glandarius</td><td class="num">93</td></tr>
@@ -502,8 +504,8 @@
 <tr><td>Picchio rosso maggiore</td><td class="scientific">Dendrocopos major</td><td class="num">29</td></tr>
 <tr><td>Verzellino</td><td class="scientific">Serinus serinus</td><td class="num">28</td></tr>
 <tr><td>Falco pellegrino</td><td class="scientific">Falco peregrinus</td><td class="num">24</td></tr>
+<tr><td>Picchio verde</td><td class="scientific">Picus viridis</td><td class="num">24</td></tr>
 <tr><td>Cornacchia nera</td><td class="scientific">Corvus corone</td><td class="num">23</td></tr>
-<tr><td>Picchio verde</td><td class="scientific">Picus viridis</td><td class="num">22</td></tr>
 <tr><td>Allocco</td><td class="scientific">Strix aluco</td><td class="num">20</td></tr>
 <tr><td>Ballerina gialla</td><td class="scientific">Motacilla cinerea</td><td class="num">13</td></tr>
 <tr><td>Corvo comune</td><td class="scientific">Corvus frugilegus</td><td class="num">12</td></tr>
@@ -525,9 +527,9 @@
 <tr><td>Cuculo</td><td class="scientific">Cuculus canorus</td><td class="num">5</td></tr>
 <tr><td>Tordo sassello</td><td class="scientific">Turdus iliacus</td><td class="num">5</td></tr>
 <tr><td>Cincia bigia</td><td class="scientific">Poecile palustris</td><td class="num">4</td></tr>
+<tr><td>Cornacchia grigia</td><td class="scientific">Corvus cornix</td><td class="num">4</td></tr>
 <tr><td>Folaga</td><td class="scientific">Fulica atra</td><td class="num">4</td></tr>
 <tr><td>Gufo reale</td><td class="scientific">Bubo bubo</td><td class="num">4</td></tr>
-<tr><td>Cornacchia grigia</td><td class="scientific">Corvus cornix</td><td class="num">3</td></tr>
 <tr><td>Crociere</td><td class="scientific">Loxia curvirostra</td><td class="num">3</td></tr>
 <tr><td>Gheppio</td><td class="scientific">Falco tinnunculus</td><td class="num">3</td></tr>
 <tr><td>Taccola</td><td class="scientific">Corvus monedula</td><td class="num">3</td></tr>
@@ -548,6 +550,7 @@
 <tr><td>Fiorrancino</td><td class="scientific">Regulus ignicapilla</td><td class="num">1</td></tr>
 <tr><td>Germano reale</td><td class="scientific">Anas platyrhynchos</td><td class="num">1</td></tr>
 <tr><td>Gruccione</td><td class="scientific">Merops apiaster</td><td class="num">1</td></tr>
+<tr><td>Lesser Spotted Woodpecker</td><td class="scientific">Dryobates minor</td><td class="num">1</td></tr>
 <tr><td>Lucherino</td><td class="scientific">Spinus spinus</td><td class="num">1</td></tr>
 <tr><td>Martin pescatore</td><td class="scientific">Alcedo atthis</td><td class="num">1</td></tr>
 <tr><td>Mignattino piombato</td><td class="scientific">Chlidonias hybrida</td><td class="num">1</td></tr>
@@ -577,7 +580,7 @@
 
     <div class="torta-card">
       <h4>Autunno 2026</h4>
-      <div class="torta-corpo"><svg viewBox="0 0 120 120" role="img" aria-label="Grafico a torta"><g transform="rotate(-90 60 60)"><circle cx="60" cy="60" r="45" fill="none" stroke="#6B5B95" stroke-width="16" stroke-dasharray="87.74 195.00" stroke-dashoffset="-0.00"><title>Codirosso spazzacamino: 917</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#B9782F" stroke-width="16" stroke-dasharray="74.25 208.49" stroke-dashoffset="-87.74"><title>Gazza: 776</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#7A8B6F" stroke-width="16" stroke-dasharray="34.06 248.68" stroke-dashoffset="-161.99"><title>Codibugnolo: 356</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#4E4270" stroke-width="16" stroke-dasharray="16.17 266.57" stroke-dashoffset="-196.05"><title>Pettirosso: 169</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#9C9484" stroke-width="16" stroke-dasharray="70.52 212.22" stroke-dashoffset="-212.22"><title>Altro: 737</title></circle></g></svg><ul class="torta-legenda"><li><span class="torta-dot" style="background:#6B5B95"></span>Codirosso spazzacamino (917)</li><li><span class="torta-dot" style="background:#B9782F"></span>Gazza (776)</li><li><span class="torta-dot" style="background:#7A8B6F"></span>Codibugnolo (356)</li><li><span class="torta-dot" style="background:#4E4270"></span>Pettirosso (169)</li><li><span class="torta-dot" style="background:#9C9484"></span>Altro (737)</li></ul></div>
+      <div class="torta-corpo"><svg viewBox="0 0 120 120" role="img" aria-label="Grafico a torta"><g transform="rotate(-90 60 60)"><circle cx="60" cy="60" r="45" fill="none" stroke="#6B5B95" stroke-width="16" stroke-dasharray="86.91 195.83" stroke-dashoffset="-0.00"><title>Codirosso spazzacamino: 924</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#B9782F" stroke-width="16" stroke-dasharray="73.55 209.19" stroke-dashoffset="-86.91"><title>Gazza: 782</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#7A8B6F" stroke-width="16" stroke-dasharray="36.68 246.06" stroke-dashoffset="-160.47"><title>Codibugnolo: 390</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#4E4270" stroke-width="16" stroke-dasharray="15.90 266.85" stroke-dashoffset="-197.15"><title>Pettirosso: 169</title></circle><circle cx="60" cy="60" r="45" fill="none" stroke="#9C9484" stroke-width="16" stroke-dasharray="69.70 213.05" stroke-dashoffset="-213.05"><title>Altro: 741</title></circle></g></svg><ul class="torta-legenda"><li><span class="torta-dot" style="background:#6B5B95"></span>Codirosso spazzacamino (924)</li><li><span class="torta-dot" style="background:#B9782F"></span>Gazza (782)</li><li><span class="torta-dot" style="background:#7A8B6F"></span>Codibugnolo (390)</li><li><span class="torta-dot" style="background:#4E4270"></span>Pettirosso (169)</li><li><span class="torta-dot" style="background:#9C9484"></span>Altro (741)</li></ul></div>
     </div>
     </div>
   </section>
@@ -585,11 +588,6 @@
   <section id="alba-tramonto">
     <h2>Alba e tramonto</h2>
     <p class="sub">Le specie più osservate nell'ora prima e nell'ora dopo l'alba e il tramonto.</p>
-    <div class="legenda-alba-tramonto">
-      <span><span class="legenda-dot" style="background:var(--lavender)"></span> 1 ora prima</span>
-      <span><span class="legenda-linea"></span> alba o tramonto</span>
-      <span><span class="legenda-dot" style="background:var(--amber)"></span> 1 ora dopo</span>
-    </div>
     <div class="grid-alba-tramonto">
       <div class="fascia-alba-tramonto">
         <h3>Alba</h3>
@@ -757,9 +755,9 @@
           </tr>
         </thead>
         <tbody>
-<tr><td>Codirosso spazzacamino</td><td><div class="mini-bar"><div class="mini-luce" style="flex:856"></div><div class="mini-buio" style="flex:61"></div></div></td><td class="num">856</td><td class="num">61</td></tr>
-<tr><td>Gazza</td><td><div class="mini-bar"><div class="mini-luce" style="flex:770"></div><div class="mini-buio" style="flex:6"></div></div></td><td class="num">770</td><td class="num">6</td></tr>
-<tr><td>Codibugnolo</td><td><div class="mini-bar"><div class="mini-luce" style="flex:356"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">356</td><td class="num">0</td></tr>
+<tr><td>Codirosso spazzacamino</td><td><div class="mini-bar"><div class="mini-luce" style="flex:863"></div><div class="mini-buio" style="flex:61"></div></div></td><td class="num">863</td><td class="num">61</td></tr>
+<tr><td>Gazza</td><td><div class="mini-bar"><div class="mini-luce" style="flex:776"></div><div class="mini-buio" style="flex:6"></div></div></td><td class="num">776</td><td class="num">6</td></tr>
+<tr><td>Codibugnolo</td><td><div class="mini-bar"><div class="mini-luce" style="flex:390"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">390</td><td class="num">0</td></tr>
 <tr><td>Pettirosso</td><td><div class="mini-bar"><div class="mini-luce" style="flex:12"></div><div class="mini-buio" style="flex:157"></div></div></td><td class="num">12</td><td class="num">157</td></tr>
 <tr><td>Civetta</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:113"></div></div></td><td class="num">0</td><td class="num">113</td></tr>
 <tr><td>Luì piccolo</td><td><div class="mini-bar"><div class="mini-luce" style="flex:83"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">83</td><td class="num">1</td></tr>
@@ -770,8 +768,8 @@
 <tr><td>Passera europea</td><td><div class="mini-bar"><div class="mini-luce" style="flex:19"></div><div class="mini-buio" style="flex:11"></div></div></td><td class="num">19</td><td class="num">11</td></tr>
 <tr><td>Balia nera</td><td><div class="mini-bar"><div class="mini-luce" style="flex:16"></div><div class="mini-buio" style="flex:13"></div></div></td><td class="num">16</td><td class="num">13</td></tr>
 <tr><td>Picchio rosso maggiore</td><td><div class="mini-bar"><div class="mini-luce" style="flex:26"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">26</td><td class="num">0</td></tr>
+<tr><td>Picchio verde</td><td><div class="mini-bar"><div class="mini-luce" style="flex:22"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">22</td><td class="num">0</td></tr>
 <tr><td>Cornacchia nera</td><td><div class="mini-bar"><div class="mini-luce" style="flex:21"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">21</td><td class="num">0</td></tr>
-<tr><td>Picchio verde</td><td><div class="mini-bar"><div class="mini-luce" style="flex:20"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">20</td><td class="num">0</td></tr>
 <tr><td>Falco pellegrino</td><td><div class="mini-bar"><div class="mini-luce" style="flex:12"></div><div class="mini-buio" style="flex:6"></div></div></td><td class="num">12</td><td class="num">6</td></tr>
 <tr><td>Allocco</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:16"></div></div></td><td class="num">1</td><td class="num">16</td></tr>
 <tr><td>Ballerina gialla</td><td><div class="mini-bar"><div class="mini-luce" style="flex:11"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">11</td><td class="num">1</td></tr>
@@ -791,7 +789,7 @@
 <tr><td>Barbagianni</td><td><div class="mini-bar"><div class="mini-luce" style="flex:2"></div><div class="mini-buio" style="flex:2"></div></div></td><td class="num">2</td><td class="num">2</td></tr>
 <tr><td>Cincia bigia</td><td><div class="mini-bar"><div class="mini-luce" style="flex:4"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">4</td><td class="num">0</td></tr>
 <tr><td>Cincia mora</td><td><div class="mini-bar"><div class="mini-luce" style="flex:4"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">4</td><td class="num">0</td></tr>
-<tr><td>Cornacchia grigia</td><td><div class="mini-bar"><div class="mini-luce" style="flex:3"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">3</td><td class="num">0</td></tr>
+<tr><td>Cornacchia grigia</td><td><div class="mini-bar"><div class="mini-luce" style="flex:4"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">4</td><td class="num">0</td></tr>
 <tr><td>Gheppio</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:3"></div></div></td><td class="num">0</td><td class="num">3</td></tr>
 <tr><td>Gufo reale</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:3"></div></div></td><td class="num">0</td><td class="num">3</td></tr>
 <tr><td>Tordo sassello</td><td><div class="mini-bar"><div class="mini-luce" style="flex:3"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">3</td><td class="num">0</td></tr>
@@ -811,6 +809,7 @@
 <tr><td>Codirosso</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td>Eurasian Nuthatch</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td>Fiorrancino</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>Lesser Spotted Woodpecker</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td>Lucherino</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">0</td><td class="num">1</td></tr>
 <tr><td>Martin pescatore</td><td><div class="mini-bar"><div class="mini-luce" style="flex:1"></div><div class="mini-buio" style="flex:0"></div></div></td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td>Nitticora</td><td><div class="mini-bar"><div class="mini-luce" style="flex:0"></div><div class="mini-buio" style="flex:1"></div></div></td><td class="num">0</td><td class="num">1</td></tr>
@@ -854,6 +853,57 @@
           </tr>
         </thead>
         <tbody>
+<tr><td>29 set 2026, 09:47</td><td>Gazza</td><td class="num">0.93</td></tr>
+<tr><td>29 set 2026, 09:47</td><td>Gazza</td><td class="num">0.87</td></tr>
+<tr><td>29 set 2026, 09:46</td><td>Picchio verde</td><td class="num">0.83</td></tr>
+<tr><td>29 set 2026, 09:46</td><td>Picchio verde</td><td class="num">0.95</td></tr>
+<tr><td>29 set 2026, 09:46</td><td>Codibugnolo</td><td class="num">0.84</td></tr>
+<tr><td>29 set 2026, 09:46</td><td>Codibugnolo</td><td class="num">0.92</td></tr>
+<tr><td>29 set 2026, 09:45</td><td>Codibugnolo</td><td class="num">0.95</td></tr>
+<tr><td>29 set 2026, 09:45</td><td>Codibugnolo</td><td class="num">0.75</td></tr>
+<tr><td>29 set 2026, 09:45</td><td>Codibugnolo</td><td class="num">0.98</td></tr>
+<tr><td>29 set 2026, 09:45</td><td>Codibugnolo</td><td class="num">1.00</td></tr>
+<tr><td>29 set 2026, 09:45</td><td>Codibugnolo</td><td class="num">1.00</td></tr>
+<tr><td>29 set 2026, 09:45</td><td>Codibugnolo</td><td class="num">1.00</td></tr>
+<tr><td>29 set 2026, 09:45</td><td>Codibugnolo</td><td class="num">0.99</td></tr>
+<tr><td>29 set 2026, 09:45</td><td>Codibugnolo</td><td class="num">1.00</td></tr>
+<tr><td>29 set 2026, 09:44</td><td>Codibugnolo</td><td class="num">1.00</td></tr>
+<tr><td>29 set 2026, 09:44</td><td>Codibugnolo</td><td class="num">0.95</td></tr>
+<tr><td>29 set 2026, 09:44</td><td>Codibugnolo</td><td class="num">0.99</td></tr>
+<tr><td>29 set 2026, 09:44</td><td>Codibugnolo</td><td class="num">0.97</td></tr>
+<tr><td>29 set 2026, 09:44</td><td>Codibugnolo</td><td class="num">0.96</td></tr>
+<tr><td>29 set 2026, 09:44</td><td>Codibugnolo</td><td class="num">1.00</td></tr>
+<tr><td>29 set 2026, 09:44</td><td>Codibugnolo</td><td class="num">0.78</td></tr>
+<tr><td>29 set 2026, 09:44</td><td>Codirosso spazzacamino</td><td class="num">0.90</td></tr>
+<tr><td>29 set 2026, 09:43</td><td>Codibugnolo</td><td class="num">0.78</td></tr>
+<tr><td>29 set 2026, 09:43</td><td>Codibugnolo</td><td class="num">0.71</td></tr>
+<tr><td>29 set 2026, 09:43</td><td>Codibugnolo</td><td class="num">1.00</td></tr>
+<tr><td>29 set 2026, 09:43</td><td>Codibugnolo</td><td class="num">0.97</td></tr>
+<tr><td>29 set 2026, 09:43</td><td>Codibugnolo</td><td class="num">0.81</td></tr>
+<tr><td>29 set 2026, 09:43</td><td>Codibugnolo</td><td class="num">0.92</td></tr>
+<tr><td>29 set 2026, 09:43</td><td>Codirosso spazzacamino</td><td class="num">0.78</td></tr>
+<tr><td>29 set 2026, 09:43</td><td>Codibugnolo</td><td class="num">0.89</td></tr>
+<tr><td>29 set 2026, 09:43</td><td>Codirosso spazzacamino</td><td class="num">0.83</td></tr>
+<tr><td>29 set 2026, 09:43</td><td>Codibugnolo</td><td class="num">0.96</td></tr>
+<tr><td>29 set 2026, 09:43</td><td>Codibugnolo</td><td class="num">0.72</td></tr>
+<tr><td>29 set 2026, 09:43</td><td>Codibugnolo</td><td class="num">0.85</td></tr>
+<tr><td>29 set 2026, 09:42</td><td>Codibugnolo</td><td class="num">0.99</td></tr>
+<tr><td>29 set 2026, 09:42</td><td>Codibugnolo</td><td class="num">0.87</td></tr>
+<tr><td>29 set 2026, 09:42</td><td>Codibugnolo</td><td class="num">0.89</td></tr>
+<tr><td>29 set 2026, 09:42</td><td>Codibugnolo</td><td class="num">0.85</td></tr>
+<tr><td>29 set 2026, 09:42</td><td>Cornacchia grigia</td><td class="num">0.72</td></tr>
+<tr><td>29 set 2026, 09:41</td><td>Codibugnolo</td><td class="num">0.79</td></tr>
+<tr><td>29 set 2026, 09:40</td><td>Gazza</td><td class="num">0.79</td></tr>
+<tr><td>29 set 2026, 09:39</td><td>Lesser Spotted Woodpecker</td><td class="num">0.85</td></tr>
+<tr><td>29 set 2026, 09:39</td><td>Gazza</td><td class="num">0.74</td></tr>
+<tr><td>29 set 2026, 09:39</td><td>Codibugnolo</td><td class="num">0.71</td></tr>
+<tr><td>29 set 2026, 09:39</td><td>Codibugnolo</td><td class="num">0.93</td></tr>
+<tr><td>29 set 2026, 09:39</td><td>Codirosso spazzacamino</td><td class="num">0.89</td></tr>
+<tr><td>29 set 2026, 09:39</td><td>Codirosso spazzacamino</td><td class="num">0.74</td></tr>
+<tr><td>29 set 2026, 09:38</td><td>Codirosso spazzacamino</td><td class="num">0.74</td></tr>
+<tr><td>29 set 2026, 09:38</td><td>Gazza</td><td class="num">0.95</td></tr>
+<tr><td>29 set 2026, 09:37</td><td>Codirosso spazzacamino</td><td class="num">0.77</td></tr>
+<tr><td>29 set 2026, 09:37</td><td>Gazza</td><td class="num">0.72</td></tr>
 <tr><td>29 set 2026, 09:37</td><td>Codirosso spazzacamino</td><td class="num">0.89</td></tr>
 <tr><td>29 set 2026, 09:37</td><td>Codirosso spazzacamino</td><td class="num">0.78</td></tr>
 <tr><td>29 set 2026, 09:37</td><td>Codirosso spazzacamino</td><td class="num">0.80</td></tr>
@@ -4872,6 +4922,7 @@ const specieRare = [
   {nome: "Fiorrancino", nomeScientifico: "Regulus ignicapilla", conteggio: 1},
   {nome: "Germano reale", nomeScientifico: "Anas platyrhynchos", conteggio: 1},
   {nome: "Gruccione", nomeScientifico: "Merops apiaster", conteggio: 1},
+  {nome: "Lesser Spotted Woodpecker", nomeScientifico: "Dryobates minor", conteggio: 1},
   {nome: "Lucherino", nomeScientifico: "Spinus spinus", conteggio: 1},
   {nome: "Martin pescatore", nomeScientifico: "Alcedo atthis", conteggio: 1},
   {nome: "Mignattino piombato", nomeScientifico: "Chlidonias hybrida", conteggio: 1},
@@ -4891,12 +4942,12 @@ const specieRare = [
   {nome: "Rigogolo", nomeScientifico: "Oriolus oriolus", conteggio: 2},
   {nome: "Tarabusino", nomeScientifico: "Ixobrychus minutus", conteggio: 2},
   {nome: "Tarabuso", nomeScientifico: "Botaurus stellaris", conteggio: 2},
-  {nome: "Cornacchia grigia", nomeScientifico: "Corvus cornix", conteggio: 3},
   {nome: "Crociere", nomeScientifico: "Loxia curvirostra", conteggio: 3},
   {nome: "Gheppio", nomeScientifico: "Falco tinnunculus", conteggio: 3},
   {nome: "Taccola", nomeScientifico: "Corvus monedula", conteggio: 3},
   {nome: "Upupa", nomeScientifico: "Upupa epops", conteggio: 3},
   {nome: "Cincia bigia", nomeScientifico: "Poecile palustris", conteggio: 4},
+  {nome: "Cornacchia grigia", nomeScientifico: "Corvus cornix", conteggio: 4},
   {nome: "Folaga", nomeScientifico: "Fulica atra", conteggio: 4},
   {nome: "Gufo reale", nomeScientifico: "Bubo bubo", conteggio: 4},
   {nome: "Barbagianni", nomeScientifico: "Tyto alba", conteggio: 5},
